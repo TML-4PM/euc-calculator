@@ -1,0 +1,14 @@
+{
+  "name": "euc-job-pricing",
+  "version": "1.0.0",
+  "description": "EUC Job Pricing Calculator with Google Calendar and Dark Mode",
+  "scripts": {
+    "build": "echo 'No build needed'",
+    "start": "live-server"
+  },
+  "dependencies": {
+    "jspdf": "^2.5.1",
+    "jsbarcode": "^3.11.5",
+    "qrcodejs": "1.0.0"
+  }
+}
