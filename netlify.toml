@@ -1,14 +1,11 @@
-{
-  "name": "euc-job-pricing",
-  "version": "1.0.0",
-  "description": "EUC Job Pricing Calculator with product selection, barcode/QR code generation, and export features",
-  "scripts": {
-    "build": "echo 'No build needed'",
-    "start": "live-server"
-  },
-  "dependencies": {
-    "jspdf": "^2.5.1",
-    "jsbarcode": "^3.11.5",
-    "qrcodejs": "1.0.0"
-  }
-}
+[build]
+  command = "npm install && npm run build"
+  publish = "/"  # Serve from root since there's no dedicated build output directory
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
