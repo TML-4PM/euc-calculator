@@ -1,190 +1,98 @@
-/* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f4;
 }
 
 .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
 }
 
-/* Header */
-.header {
+header {
+    background: #333;
+    color: #fff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #0779e4 3px solid;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
 }
 
-.header .logo {
-    height: 60px;
+header .logo {
+    width: 150px;
+    height: auto;
 }
 
-.header h2 {
-    font-size: 24px;
-    color: #333;
+header h1 {
     margin: 0;
+    font-size: 24px;
 }
 
-/* Email Input Section */
-.email-input {
-    margin-bottom: 20px;
+section {
+    background: #fff;
+    margin: 20px 0;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.email-input label {
+label {
     display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
+    margin: 10px 0 5px;
 }
 
-.email-input textarea {
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea,
+select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-}
-
-.email-input button {
-    margin-top: 10px;
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.email-input button:hover {
-    background-color: #0056b3;
-}
-
-/* Product Selection */
-h3 {
-    font-size: 20px;
-    color: #333;
     margin-bottom: 10px;
-}
-
-.product-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.product-category {
-    flex: 1 1 calc(33.333% - 30px);
-    background-color: #f1f1f1;
-    padding: 15px;
-    border-radius: 8px;
-}
-
-.product-category h4 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.product-category ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.product-category li {
-    margin-bottom: 5px;
-}
-
-.product-category input[type="checkbox"] {
-    margin-right: 10px;
-}
-
-/* Form Styles */
-form {
-    margin-top: 20px;
-}
-
-form label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-form input[type="text"],
-form input[type="date"],
-form input[type="number"],
-form select,
-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
 }
 
-form textarea {
-    resize: vertical;
-}
-
-/* Button Group */
-.button-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.button-group button {
-    flex: 1 1 calc(33.333% - 20px);
-    padding: 10px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-}
-
-.button-group button:hover {
-    background-color: #218838;
-}
-
-/* Results Section */
-.results-container {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #e9ecef;
-    border-radius: 4px;
-    text-align: center;
-    font-style: italic;
-}
-
-/* Barcode and QR Code */
-.barcode-container,
-.qrcode-container {
+button {
     display: inline-block;
+    background: #0779e4;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #005bb5;
+}
+
+#results {
+    text-align: center;
+    padding: 20px;
+    background: #e2e2e2;
+    border-radius: 5px;
     margin-top: 20px;
 }
 
-.barcode-container canvas,
-.qrcode-container div {
-    display: block;
-    margin: 0 auto;
+.barcode-qr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .product-category {
-        flex: 1 1 100%;
-    }
-
-    .button-group button {
-        flex: 1 1 100%;
-    }
+.barcode-qr canvas,
+.barcode-qr div {
+    margin: 0 10px;
 }
+
+.dark-mode {
+    background-color:
+::contentReference[oaicite:0]{index=0}
+ 
