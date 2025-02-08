@@ -1,3 +1,3 @@
 [build]
-  command = "echo 'No build process needed'" # Disable build process
-  publish = "/src/" # Adjust based on your folder structure
+  command = "echo 'No build process needed'"  # No build step required
+  publish = "."  # Publish the root directory
