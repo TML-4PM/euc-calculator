@@ -1,14 +1,15 @@
 {
-  "name": "euc-job-pricing",
+  "name": "euc-job-pricing-calculator",
   "version": "1.0.0",
-  "description": "EUC Job Pricing Calculator with product selection, barcode/QR code generation, and export features",
+  "description": "A web application to calculate job pricing for EUC services.",
+  "main": "index.html",
   "scripts": {
-    "build": "echo 'No build needed'",
-    "start": "live-server"
+    "start": "live-server --open=./index.html",
+    "build": "echo 'No build step necessary for this project.'"
   },
+  "author": "Your Name",
+  "license": "MIT",
   "dependencies": {
-    "jspdf": "^2.5.1",
-    "jsbarcode": "^3.11.5",
-    "qrcodejs": "1.0.0"
+    "live-server": "^1.2.1"
   }
 }
