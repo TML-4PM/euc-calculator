@@ -1,7 +1,7 @@
 {
   "name": "euc-job-pricing",
   "version": "1.0.0",
-  "description": "EUC Job Pricing Calculator",
+  "description": "EUC Job Pricing Calculator with product selection, barcode/QR code generation, and export features",
   "scripts": {
     "build": "echo 'No build needed'",
     "start": "live-server"
