@@ -1,115 +1,111 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: black;
+    background: linear-gradient(120deg, #00529F, #003A75);
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
 }
 
 /* Main Container */
 .container {
     width: 90%;
-    max-width: 800px;
-    background-color: white;
+    max-width: 700px;
+    background: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    color: #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
-/* Logo Container */
-.logo-container {
+/* Header */
+.header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     margin-bottom: 20px;
 }
 
 .logo {
-    max-width: 120px; /* Ensure logos are correctly sized */
+    max-width: 120px;
     height: auto;
 }
 
-/* Form Styles */
-form {
-    display: flex;
-    flex-direction: column;
+/* Sections */
+.section {
+    margin-bottom: 20px;
+}
+
+.section label {
+    font-weight: bold;
+    color: #00529F;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Grid Layout */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
 }
 
-label {
-    font-weight: bold;
-    color: #00529F;
+.form-group {
+    display: flex;
+    flex-direction: column;
 }
 
-textarea, input, select {
+/* Inputs */
+input, select, textarea {
     width: 100%;
     padding: 10px;
+    margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
 }
 
-/* Form Layout: Grid for Better Alignment */
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.form-grid label {
-    grid-column: span 2;
-}
-
-/* Button Styles */
+/* Buttons */
 button {
     width: 100%;
     padding: 12px;
-    background-color: #00529F;
-    color: white;
+    margin-top: 10px;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease-in-out;
+}
+
+.suggest-btn {
+    background: #FF9800;
+    color: white;
+}
+
+.calculate-btn {
+    background: #007BFF;
+    color: white;
+}
+
+.confirm-btn {
+    background: #4CAF50;
+    color: white;
 }
 
 button:hover {
-    background-color: #003A75;
-}
-
-/* Barcode & QR Code */
-.barcode-container, .qrcode-container {
-    margin-top: 20px;
-    text-align: center;
-}
-
-canvas, #qrcode {
-    margin: 10px auto;
+    filter: brightness(90%);
 }
 
 /* Responsive Fixes */
-@media (max-width: 768px) {
-    .logo-container {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .logo {
-        max-width: 80px;
-    }
-
-    .form-grid {
+@media (max-width: 600px) {
+    .grid-container {
         grid-template-columns: 1fr;
     }
 
-    button {
-        width: 100%;
+    .logo {
+        max-width: 90px;
     }
 }
