@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EUC Job Pricing Calculator</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="../script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img class="logo" src="../assets/officeworks.png" alt="Officeworks Logo">
+            <img class="logo" src="../assets/geeks2u.png" alt="Geeks2u Logo">
+        </div>
+        <h1>EUC Job Pricing Calculator</h1>
+
+        <!-- Email Input for Auto-Fill -->
+        <div class="section">
+            <label for="email_input">Paste Email Request:</label>
+            <textarea id="email_input" rows="4" placeholder="Paste email here..."></textarea>
+            <button onclick="parseEmailAndFillForm()">Auto-Fill Form</button>
+        </div>
+
+        <!-- User Input Form -->
+        <form id="pricing-form">
+            <div class="grid-container">
+                <div class="form-group">
+                    <label for="membership_number">Officeworks Membership Number:</label>
+                    <input type="text" id="membership_number" placeholder="Enter Membership Number">
+                </div>
+                <div class="form-group">
+                    <label for="sku">SKU:</label>
+                    <input type="text" id="sku" placeholder="Enter SKU">
+                </div>
+                <div class="form-group">
+                    <label for="base_hours">Base Estimated Hours:</label>
+                    <input type="number" id="base_hours" min="1" value="1">
+                </div>
+                <div class="form-group">
+                    <label for="device_count">Number of Devices:</label>
+                    <input type="number" id="device_count" min="1" value="5">
+                </div>
+                <div class="form-group">
+                    <label for="service_type">Service Type:</label>
+                    <select id="service_type">
+                        <option value="Remote Support">Remote Support</option>
+                        <option value="Onsite Standard">Onsite Standard</option>
+                        <option value="Onsite Urgent">Onsite Urgent</option>
+                        <option value="Multi-Site Deployment">Multi-Site Deployment</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="installation_date">Preferred Installation Date:</label>
+                    <input type="date" id="installation_date">
+                </div>
+            </div>
+            <button class="calculate-btn" onclick="calculateAndDisplay()">Calculate</button>
+            <button class="suggest-btn" onclick="suggestDates()">Suggest Dates</button>
+            <button class="confirm-btn" onclick="confirmAppointment()" style="margin-top: 20px;">Confirm Appointment</button>
+            <button onclick="exportToCSV()">Export Results to CSV</button>
+            <button onclick="printToPDF()">Print Quote to PDF</button>
+            <div id="results" style="margin-top: 20px;">
+                <p><em>Results will appear here...</em></p>
+            </div>
+            <div id="loading" style="display: none; text-align: center; margin-top: 20px;">
+                <img src="../assets/loading-spinner.gif" alt="Loading..." style="width: 50px;">
+            </div>
+            <!-- Confirmation Modal -->
+            <div id="confirmation-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000;">
+                <div style="background: white; padding: 20px; margin: 10% auto; width: 80%; max-width: 400px; border-radius: 10px;">
+                    <h3 id="modal-title">Confirmation</h3>
+                    <p id="confirmation-message"></p>
+                    <button onclick="closeModal()">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
