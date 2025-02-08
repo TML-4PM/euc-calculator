@@ -1,111 +1,92 @@
 /* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(120deg, #00529F, #003A75);
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
     color: #333;
-    transition: 0.3s;
+    margin: 0;
+    padding: 0;
 }
 
-/* Dark Mode */
-.dark-mode {
-    background: #121212;
-    color: white;
-}
-
-/* Container */
 .container {
-    background: white;
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.25);
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Buttons - Modern Small Design */
-button {
-    padding: 8px 14px;
-    font-size: 14px;
+/* Header Styles */
+.logo {
+    height: 50px;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+/* Form Styles */
+.form-label {
     font-weight: bold;
-    cursor: pointer;
-    border-radius: 6px;
-    border: none;
-    transition: all 0.3s ease-in-out;
+    margin-top: 10px;
 }
 
-button:hover {
-    filter: brightness(92%);
-    transform: translateY(-2px);
+.form-control {
+    margin-bottom: 15px;
 }
 
 .btn-custom {
-    background: #007BFF;
-    color: white;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
-.btn-custom:hover {
-    background: #0056b3;
-}
-
-/* Product Selection */
+/* Product Selection Styles */
 .product-options {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
 
-.product-options label {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background: #f9f9f9;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    width: 250px;
-}
-
-.product-options input[type="checkbox"] {
-    margin-right: 10px;
+.product-options .form-check {
+    flex: 1 1 calc(50% - 10px);
 }
 
 /* Results Section */
 #results {
     margin-top: 20px;
-    padding: 12px;
-    border: 2px solid #00529F;
-    border-radius: 6px;
-    background-color: #f9f9f9;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f1f1f1;
 }
 
-/* Barcode & QR Code Containers */
-#barcode-container, #qrcode-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+/* Barcode & QR Code */
+#barcode, #qrcode {
+    margin: 10px;
 }
 
-canvas, #qrcode {
-    margin: 10px auto;
-    display: block;
+/* Dark Mode */
+body.dark-mode {
+    background-color: #333;
+    color: #f8f9fa;
 }
 
-/* Loading Indicator */
-#loading {
-    display: none;
-    text-align: center;
-    margin-top: 15px;
+body.dark-mode .container {
+    background-color: #444;
 }
 
-#loading img {
-    width: 50px;
-    animation: rotate 1s linear infinite;
+body.dark-mode .form-control {
+    background-color: #555;
+    color: #f8f9fa;
 }
 
-/* Animations */
-@keyframes rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+body.dark-mode .btn-custom {
+    background-color: #666;
+    color: #f8f9fa;
+}
+
+body.dark-mode #results {
+    background-color: #555;
+    border-color: #666;
 }
