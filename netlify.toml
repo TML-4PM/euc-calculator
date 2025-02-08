@@ -1,3 +1,14 @@
 [build]
-  command = "echo 'No build process needed'" # Disable build process
-  publish = "/" # Serve files directly from the root directory
+  publish = "public"
+  command = "npm run build"
+
+[functions]
+  directory = "functions"
+
+[[plugins]]
+  package = "@netlify/plugin-functions-core"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
