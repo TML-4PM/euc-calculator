@@ -20,7 +20,7 @@ const products = [
     { name: "J.Burrows Wireless Mouse Black", sku: "MOU-002", price: 29.95 },
     { name: "Microsoft Bluetooth Mouse", sku: "MOU-003", price: 49.95 },
     { name: "HP LaserJet Pro MFP M428fdw Printer", sku: "PRT-001", price: 699 },
-    { name: "Canon PIXMA Home TS6360 Printer", sku: "PRT-002", price: 14.00 },
+    { name: "Canon PIXMA Home TS6360 Printer", sku: "PRT-002", price: 149 },
     { name: "Brother DS-640 Portable Scanner", sku: "SCN-001", price: 179 },
     { name: "Epson Perfection V39 Flatbed Scanner", sku: "SCN-002", price: 149 },
     { name: "Logitech C920 HD Pro Webcam", sku: "WBC-001", price: 139 },
@@ -90,6 +90,12 @@ function calculateAndDisplay(event) {
     const serviceType = document.getElementById("service_type").value;
     const stairs = parseInt(document.getElementById("stairs").value || 0, 10);
     const distance = parseFloat(document.getElementById("distance").value || 0);
-    const urgency = document.getElementBy
+    const urgency = document.getElementById("urgency").value;
+    const afterHours = document.getElementById("after_hours").value === "Yes";
+
+    // Base rate per hour
+    let ratePerHour = 100;
+
+    //
 ::contentReference[oaicite:0]{index=0}
  
