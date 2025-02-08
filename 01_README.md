@@ -1,32 +1,20 @@
 # EUC Job Pricing Calculator
 
-## 📌 Description
-The EUC Job Pricing Calculator is a web-based tool that helps estimate IT service costs. It includes **dynamic pricing**, barcode/QR code generation, and real-time cost calculations.
-
 ## 🚀 Features
-✔ Custom quote description  
-✔ Estimated hours based on service type and complexity  
-✔ Input fields for **membership number, SKU, devices, software, hardware, complexity, and service type**  
-✔ **Dynamic pricing calculation**  
-✔ **Barcode & QR code generation** for tracking  
+- **Auto-Fill**: Paste an email request, and the form fills automatically.
+- **Scheduling**: Choose a date or get suggested dates.
+- **Interoperability**: Supports **ServiceNow** and **Microsoft Outlook** API integration.
+- **Responsive Design**: Works on mobile and desktop.
 
-## 🔧 How to Use
-1. **Visit the live site:** [https://TML-4PM.github.io/euc-calculator/](https://TML-4PM.github.io/euc-calculator/)
-2. **Enter details** (software, hardware, complexity, etc.).
-3. Optionally, provide a **custom quote description**.
-4. Click **"Calculate"** to generate your **quote & cost estimation**.
-5. A **barcode & QR code** will be generated for tracking.
+## 📌 How to Use
+1. **Paste an email request** in the "Enter Email Request" box.
+2. Click **"Auto-Fill Form"**.
+3. Enter additional details (if needed).
+4. Select a **preferred installation date** or click **"Suggest Dates"**.
+5. Click **"Calculate"** to generate a quote.
+6. Click **"Confirm Appointment"** to finalize the schedule.
 
-## 🛠 Technologies Used
-- HTML, CSS, JavaScript
-- JsBarcode (via CDN)
-- QRCode.js (via CDN)
-
-## 📢 Deployment
-Hosted on **GitHub Pages**.  
-To update:
-1. Edit files locally.
-2. Push updates to GitHub.
-
-## 📞 Contact
-For feedback, email [your contact here].
+## 🛠 Deployment
+This project is hosted on **Vercel**. To deploy:
+```sh
+vercel --prod
