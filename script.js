@@ -35,37 +35,57 @@ const products = [
 ];
 
 function renderProductOptions() {
-    const container = document.getElementById('product-selection');
+    const productSelection = document.getElementById('product-selection');
     const categories = [...new Set(products.map(product => product.category))];
+
     categories.forEach(category => {
         const categoryDiv = document.createElement('div');
-        categoryDiv.className = 'product-category';
+        categoryDiv.classList.add('product-category');
+
         const categoryTitle = document.createElement('h4');
         categoryTitle.textContent = category;
         categoryDiv.appendChild(categoryTitle);
-        products.filter(product => product.category === category).forEach(product => {
-            const div = document.createElement('div');
-            div.className = 'product-option';
-            div.innerHTML = `
-                <input type="checkbox" id="${product.id}" data-price="${product.price}">
-                <label for="${product.id}">${product.name}</label>
-            `;
-            categoryDiv.appendChild(div);
-        });
-        container.appendChild(categoryDiv);
+
+        const productList = document.createElement('ul');
+
+        products
+            .filter(product => product.category === category)
+            .forEach(product => {
+                const productItem = document.createElement('li');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = product.id;
+                checkbox.name = product.name;
+                checkbox.value = product.id;
+
+                const label = document.createElement('label');
+                label.htmlFor = product.id;
+                label.textContent = product.name;
+
+                productItem.appendChild(checkbox);
+                productItem.appendChild(label);
+                productList.appendChild(productItem);
+            });
+
+        categoryDiv.appendChild(productList);
+        productSelection.appendChild(categoryDiv);
     });
 }
 
 function parseEmailAndFillForm() {
-    const emailContent = document.getElementById('email_input').value;
-    const lines = emailContent.split('\n');
-    lines.forEach(line => {
-        products.forEach(product => {
-            if (line.includes(product.name)) {
-                document.getElementById(product.id).checked = true;
-            }
-        });
+    const emailInput = document.getElementById('email_input').value;
+    const selectedProducts = [];
+
+    products.forEach(product => {
+        const regex = new RegExp(product.name, 'i');
+        if (regex.test(emailInput)) {
+            selectedProducts.push(product);
+            document.getElementById(product.id).checked = true;
+        }
     });
+
+    const deviceCount = selectedProducts.length;
+    document.getElementById('device_count').value = deviceCount;
 }
 
 function calculateAndDisplay(event) {
@@ -73,9 +93,6 @@ function calculateAndDisplay(event) {
     const selectedProducts = products.filter(product => document.getElementById(product.id).checked);
     const totalPrice = selectedProducts.reduce((sum, product) => sum + product.price, 0);
     const resultsDiv = document.getElementById('results');
-    resultsDiv.innerHTML = `
-        <h4>Selected Products:</h4>
-        <ul>
-            ${selectedProducts.map(product => `<li>${product.name} - $${product.price.to
+    results
 ::contentReference[oaicite:0]{index=0}
  
