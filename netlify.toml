@@ -1,29 +1,11 @@
 [build]
-  command = "echo 'No build process needed'" # No build step required
-  publish = "/" # Serve static files from the root directory
+  command = "npm install && npm run build"  # Ensures dependencies are installed before the build
+  publish = "public"  # Change to "dist" or the correct directory if using a different build system
 
-[headers]
-  # Security headers
-  [[headers]]
-    for = "/*"
-    [headers.values]
-      Content-Security-Policy = "default-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com"
-      X-Frame-Options = "DENY"
-      X-Content-Type-Options = "nosniff"
-      Referrer-Policy = "strict-origin-when-cross-origin"
-      Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+[build.environment]
+  NODE_VERSION = "18"
 
-  # Enable CORS (if needed)
-  [[headers]]
-    for = "/api/*"
-    [headers.values]
-      Access-Control-Allow-Origin = "*"
-      Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
-      Access-Control-Allow-Headers = "Content-Type, Authorization"
-
-[redirects]
-  # Redirect all 404s to a custom page (if needed)
-  [[redirects]]
-    from = "/*"
-    to = "/index.html"
-    status = 200
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
