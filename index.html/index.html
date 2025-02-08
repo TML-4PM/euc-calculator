@@ -14,6 +14,9 @@
         </div>
         <h1>EUC Job Pricing Calculator</h1>
 
+        <!-- Dark Mode Toggle -->
+        <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
         <!-- Custom Quote Description -->
         <label for="quote_description">Add Text to Start Quote:</label>
         <textarea id="quote_description" rows="4" placeholder="Enter a brief description of your requirements"></textarea>
@@ -68,10 +71,39 @@
             <option value="Multi-Site Deployment">Multi-Site Deployment</option>
         </select>
 
+        <label for="technician">Assign Activity to Technician:</label>
+        <select id="technician">
+            <option value="Tech1">Technician 1</option>
+            <option value="Tech2">Technician 2</option>
+            <option value="Tech3">Technician 3</option>
+        </select>
+
+        <label for="currency">Currency:</label>
+        <select id="currency">
+            <option value="AUD">AUD</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+        </select>
+
         <button onclick="calculateAndDisplay()">Calculate</button>
+        <button onclick="exportQuotesToCSV()">Export Quotes to CSV</button>
+        <button onclick="printQuoteToPDF()">Print Quote to PDF</button>
+        <button onclick="sendQuoteByEmail()">Send Quotation by Email</button>
+        <button onclick="sendToCRM()">Send to CRM</button>
+        <button onclick="showPerformanceDashboard()">View Performance Dashboard</button>
+        <button onclick="generateBulkQuotes()">Generate Bulk Quotes</button>
+        <button onclick="showHistory()">View Quote History</button>
 
         <!-- Results -->
         <div id="results" style="margin-top: 20px;"></div>
+
+        <!-- Aggregated Metrics -->
+        <div id="aggregated-metrics" style="margin-top: 20px;">
+            <h3>Aggregated Metrics</h3>
+            <p><strong>Total Activities:</strong> <span id="total-activities">0</span></p>
+            <p><strong>Total Billable Hours:</strong> <span id="total-hours">0</span> Hours</p>
+            <p><strong>Total Cost (AUD):</strong> AUD $<span id="total-cost">0.00</span></p>
+        </div>
 
         <!-- Barcode and QR Code -->
         <div class="barcode-container" id="barcode-container" style="display: none;">
@@ -83,9 +115,30 @@
             <div id="qrcode"></div>
         </div>
 
+        <!-- Activity Timeline -->
+        <div id="timeline" style="margin-top: 20px;"></div>
+
+        <!-- Feedback Form -->
+        <h3>Feedback</h3>
+        <textarea id="feedback" rows="4" placeholder="Provide your feedback here"></textarea>
+        <button onclick="submitFeedback()">Submit Feedback</button>
+
+        <!-- Performance Dashboard Modal -->
+        <div id="dashboard-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000;">
+            <div style="background: white; padding: 20px; margin: 10% auto; width: 80%; max-width: 800px; border-radius: 10px;">
+                <h3>Performance Dashboard</h3>
+                <canvas id="performance-chart" style="width: 100%; height: 300px;"></canvas>
+                <button onclick="closeDashboardModal()">Close</button>
+            </div>
+        </div>
+
         <!-- Include External Libraries -->
         <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
         <script src="script.js"></script>
     </div>
 </body>
