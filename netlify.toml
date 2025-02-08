@@ -1,9 +1,6 @@
 [build]
-  command = "npm install && npm run build"
-  publish = "/"  # Serve from root since there's no dedicated build output directory
-
-[build.environment]
-  NODE_VERSION = "18"
+  command = "npm run build"
+  publish = "build"
 
 [[redirects]]
   from = "/*"
