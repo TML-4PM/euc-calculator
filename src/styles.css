@@ -108,6 +108,16 @@ button:hover {
     background-color: #f9f9f9;
 }
 
+/* Barcode and QR Code Containers */
+.barcode-container, .qrcode-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+canvas, #qrcode {
+    margin: 10px auto;
+}
+
 /* Modal */
 #confirmation-modal {
     display: none;
