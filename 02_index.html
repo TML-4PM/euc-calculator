@@ -1,24 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EUC Job Pricing Calculator - Estimate IT service costs easily.">
+    <meta name="author" content="Your Name or Company">
     <title>EUC Job Pricing Calculator</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="03_styles.css">
+    <script src="04_script.js" defer></script>
 </head>
 <body>
     <div class="container">
         <div class="logo-container">
-            <!-- Officeworks Logo -->
             <img class="logo" src="https://upload.wikimedia.org/wikipedia/en/2/2d/Officeworks_Logo.png" alt="Officeworks Logo">
-            <!-- Geeks2u Logo -->
             <img class="logo" src="https://www.geeks2u.com.au/wp-content/uploads/2020/04/logo.svg" alt="Geeks2u Logo">
         </div>
+
         <h1>EUC Job Pricing Calculator</h1>
 
-        <!-- Custom Quote Description -->
         <label for="quote_description">Add Text to Start Quote:</label>
         <textarea id="quote_description" rows="4" placeholder="Enter a brief description of your requirements"></textarea>
 
-        <!-- Input Fields -->
         <label for="membership_number">Officeworks Membership Number:</label>
         <input type="text" id="membership_number" placeholder="Enter Membership Number">
 
@@ -68,25 +70,21 @@
             <option value="Multi-Site Deployment">Multi-Site Deployment</option>
         </select>
 
-        <button onclick="calculateAndDisplay()">Calculate</button>
+        <button id="calculate-btn">Calculate</button>
 
-        <!-- Results -->
         <div id="results" style="margin-top: 20px;"></div>
 
-        <!-- Barcode and QR Code -->
-        <div class="barcode-container" id="barcode-container" style="display: none;">
+        <div class="barcode-container hidden" id="barcode-container">
             <h3>Unique Barcode</h3>
             <canvas id="barcode"></canvas>
         </div>
-        <div class="qrcode-container" id="qrcode-container" style="display: none;">
+        <div class="qrcode-container hidden" id="qrcode-container">
             <h3>Unique QR Code</h3>
             <div id="qrcode"></div>
         </div>
 
-        <!-- Include External Libraries -->
         <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-        <script src="script.js"></script>
     </div>
 </body>
 </html>
