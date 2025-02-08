@@ -4,123 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EUC Job Pricing Calculator</title>
-    <!-- External Libraries -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://apis.google.com/js/api.js"></script>
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="styles.css">
-    <!-- JavaScript -->
     <script src="script.js" defer></script>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <img class="logo" src="assets/officeworks-logo.png" alt="Officeworks Logo">
-            <h2 class="text-center">EUC Job Pricing Calculator</h2>
-            <img class="logo" src="assets/geeks2u-logo.png" alt="Geeks2U Logo">
-        </div>
-        
-        <!-- Email Input -->
-        <div class="mb-4">
-            <label for="email_input" class="form-label">Paste Email Request:</label>
-            <textarea id="email_input" class="form-control" rows="3" placeholder="Paste email here..."></textarea>
-            <button class="btn btn-primary btn-custom mt-2" onclick="parseEmailAndFillForm()">Auto-Fill Form</button>
+        <div class="header">
+            <img src="assets/officeworks-logo.png" alt="Officeworks Logo" class="logo">
+            <h2>EUC Job Pricing Calculator</h2>
+            <img src="assets/geeks2u-logo.png" alt="Geeks2U Logo" class="logo">
         </div>
 
-        <!-- Product Selection -->
-        <div class="mb-4">
-            <h4>Additional Products & Services</h4>
-            <div id="product-selection" class="product-options"></div>
+        <div class="email-input">
+            <label for="email_input">Paste Email Request:</label>
+            <textarea id="email_input" rows="4" placeholder="Paste email here..."></textarea>
+            <button onclick="parseEmailAndFillForm()">Auto-Fill Form</button>
         </div>
 
-        <!-- Additional Service Variables -->
-        <div class="mb-4">
-            <h4>Additional Job Variables</h4>
-            <div class="row">
-                <div class="col-md-6">
-                    <label class="form-label">Number of Stairs:</label>
-                    <input type="number" id="stairs" class="form-control" min="0" value="0">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Distance to Site (km):</label>
-                    <input type="number" id="distance" class="form-control" min="0" value="0">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Urgency Level:</label>
-                    <select id="urgency" class="form-control">
-                        <option value="Standard">Standard</option>
-                        <option value="Urgent">Urgent</option>
-                        <option value="Emergency">Emergency</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">After-Hours Service Required?</label>
-                    <select id="after_hours" class="form-control">
-                        <option value="No">No</option>
-                        <option value="Yes">Yes</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+        <h3>Select Products:</h3>
+        <div id="product-selection" class="product-container"></div>
 
-        <!-- Form Start -->
         <form id="pricing-form">
-            <div class="row">
-                <div class="col-md-6">
-                    <label class="form-label">Officeworks Membership Number:</label>
-                    <input type="text" id="membership_number" class="form-control" placeholder="Enter Membership Number">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">SKU:</label>
-                    <input type="text" id="sku" class="form-control" placeholder="Enter SKU">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Base Estimated Hours:</label>
-                    <input type="number" id="base_hours" class="form-control" min="1" value="1">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Number of Devices:</label>
-                    <input type="number" id="device_count" class="form-control" min="0" value="0">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Service Type:</label>
-                    <select id="service_type" class="form-control">
-                        <option value="Remote Support">Remote Support</option>
-                        <option value="Onsite Standard">Onsite Standard</option>
-                        <option value="Onsite Urgent">Onsite Urgent</option>
-                        <option value="Multi-Site Deployment">Multi-Site Deployment</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Preferred Installation Date:</label>
-                    <input type="date" id="installation_date" class="form-control">
-                </div>
-            </div>
-            
-            <!-- Buttons -->
-            <button class="btn btn-success btn-custom" onclick="calculateAndDisplay(event)">Calculate</button>
-            <button class="btn btn-info btn-custom" onclick="confirmAppointment(event)">Confirm Appointment</button>
-            <button class="btn btn-dark btn-custom" onclick="exportToCSV()">Export to CSV</button>
-            <button class="btn btn-secondary btn-custom" onclick="printToPDF()">Print to PDF</button>
-            <button class="btn btn-success btn-custom" onclick="scheduleInGoogleCalendar()">📅 Schedule in Google Calendar</button>
-            <button class="btn btn-dark btn-custom" onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
-            
-            <!-- Results Section -->
-            <div id="results" class="mt-3 alert alert-light text-center">
-                <em>Results will appear here...</em>
-            </div>
-            
-            <!-- Barcode & QR Code -->
-            <div class="d-flex justify-content-center mt-3">
-                <canvas id="barcode"></canvas>
-                <div id="qrcode"></div>
+            <h3>Service Details</h3>
+            <label>Officeworks Membership Number:</label>
+            <input type="text" id="membership_number">
+
+            <label>Preferred Installation Date:</label>
+            <input type="date" id="installation_date">
+
+            <label>Number of Devices:</label>
+            <input type="number" id="device_count" min="0" value="0">
+
+            <label>Service Type:</label>
+            <select id="service_type">
+                <option value="Remote Support">Remote Support</option>
+                <option value="Onsite Standard">Onsite Standard</option>
+                <option value="Onsite Urgent">Onsite Urgent</option>
+                <option value="Multi-Site Deployment">Multi-Site Deployment</option>
+            </select>
+
+            <h3>Additional Job Variables</h3>
+            <label>Number of Stairs:</label>
+            <input type="number" id="stairs" min="0" value="0">
+
+            <label>Distance to Site (km):</label>
+            <input type="number" id="distance" min="0" value="0">
+
+            <label>Urgency Level:</label>
+            <select id="urgency">
+                <option value="Standard">Standard</option>
+                <option value="Urgent">Urgent</option>
+                <option value="Emergency">Emergency</option>
+            </select>
+
+            <label>After-Hours Service Required?</label>
+            <select id="after_hours">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+
+            <label>Additional Notes:</label>
+            <textarea id="additional_notes" rows="3" placeholder="Enter any special requirements..."></textarea>
+
+            <div class="button-group">
+                <button onclick="calculateAndDisplay(event)">Calculate</button>
+                <button onclick="confirmAppointment(event)">Confirm Appointment</button>
+                <button onclick="exportToCSV()">Export to CSV</button>
+                <button onclick="printToPDF()">Print to PDF</button>
+                <button onclick="scheduleInGoogleCalendar()">📅 Schedule in Google Calendar</button>
             </div>
         </form>
+
+        <div id="results" class="results-container">Results will appear here...</div>
+
+        <div id="barcode-container" class="barcode-container">
+            <canvas id="barcode"></canvas>
+        </div>
+        <div id="qrcode-container" class="qrcode-container">
+            <div id="qrcode"></div>
+        </div>
     </div>
 </body>
 </html>
-
