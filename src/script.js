@@ -74,7 +74,7 @@ function exportToCSV() {
             document.getElementById("sku").value,
             document.getElementById("service_type").value,
             document.getElementById("device_count").value,
-            "AUD $1000" // Replace with actual cost
+            `AUD $${document.getElementById("results").textContent.split("AUD $")[1]?.trim() || "N/A"}`
         ]
     ].map(row => row.join(",")).join("\n");
 
@@ -92,7 +92,7 @@ function printToPDF() {
     doc.text("EUC Job Pricing Quote", 10, 10);
     doc.text(`Service Type: ${document.getElementById("service_type").value}`, 10, 20);
     doc.text(`Devices: ${document.getElementById("device_count").value}`, 10, 30);
-    doc.text(`Total Cost: AUD $1000`, 10, 40); // Replace with actual cost
+    doc.text(`Total Cost: ${document.getElementById("results").textContent.split("AUD $")[1]?.trim() || "N/A"}`, 10, 40);
     doc.save("quote.pdf");
 }
 
