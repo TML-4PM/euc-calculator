@@ -95,6 +95,6 @@ function calculateAndDisplay(event) {
     const baseHours = parseFloat(document.getElementById('base_hours').value) || 0;
     const deviceCount = parseInt(document.getElementById('device_count').value) || 0;
     const additionalProducts = Array.from(document.querySelectorAll('input[name="product"]:checked'))
-
+        .map(checkbox => products.find(product =>
 ::contentReference[oaicite:0]{index=0}
  
