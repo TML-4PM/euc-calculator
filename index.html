@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EUC Job Pricing Calculator</title>
-
+    
     <!-- External Libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
+    
     <!-- Custom Styles -->
     <link rel="stylesheet" href="styles.css">
     
@@ -20,17 +20,27 @@
 <body>
     <div class="container">
         <!-- Header -->
-        <div class="d-flex justify-content-center mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
             <img class="logo" src="assets/officeworks-logo.png" alt="Officeworks Logo">
-            <img class="logo" src="assets/geeks2u-logo.png" alt="Geeks2u Logo">
+            <h2 class="text-center">EUC Job Pricing Calculator</h2>
+            <img class="logo" src="assets/geeks2u-logo.png" alt="Geeks2U Logo">
         </div>
-        <h2 class="text-center">EUC Job Pricing Calculator</h2>
-
+        
         <!-- Email Input -->
         <div class="mb-4">
             <label for="email_input" class="form-label">Paste Email Request:</label>
             <textarea id="email_input" class="form-control" rows="3" placeholder="Paste email here..."></textarea>
-            <button class="btn btn-primary btn-custom" onclick="parseEmailAndFillForm()">Auto-Fill Form</button>
+            <button class="btn btn-primary btn-custom mt-2" onclick="parseEmailAndFillForm()">Auto-Fill Form</button>
+        </div>
+
+        <!-- Product Selection -->
+        <div class="mb-4">
+            <h4>Additional Products & Services</h4>
+            <div class="product-options">
+                <label><input type="checkbox" class="product" value="150" data-name="SAP Installation"> SAP Installation ($150)</label><br>
+                <label><input type="checkbox" class="product" value="100" data-name="Custom Desk Configuration"> Custom Desk Configuration ($100)</label><br>
+                <label><input type="checkbox" class="product" value="75" data-name="After-Hours Support"> After-Hours Support ($75)</label><br>
+            </div>
         </div>
 
         <!-- Form Start -->
@@ -66,21 +76,15 @@
                     <input type="date" id="installation_date" class="form-control">
                 </div>
             </div>
-
+            
             <!-- Buttons -->
             <button class="btn btn-success btn-custom" onclick="calculateAndDisplay(event)">Calculate</button>
-            <button class="btn btn-warning btn-custom" onclick="suggestDates(event)">Suggest Dates</button>
             <button class="btn btn-info btn-custom" onclick="confirmAppointment(event)">Confirm Appointment</button>
             <button class="btn btn-dark btn-custom" onclick="exportToCSV()">Export to CSV</button>
             <button class="btn btn-secondary btn-custom" onclick="printToPDF()">Print to PDF</button>
             <button class="btn btn-success btn-custom" onclick="scheduleInGoogleCalendar()">📅 Schedule in Google Calendar</button>
             <button class="btn btn-dark btn-custom" onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
-
-            <!-- Loading Indicator -->
-            <div id="loading" class="loading-spinner">
-                <img src="assets/rowboat.gif" alt="Loading..." width="50">
-            </div>
-
+            
             <!-- Results Section -->
             <div id="results" class="mt-3 alert alert-light text-center">
                 <em>Results will appear here...</em>
