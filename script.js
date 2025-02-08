@@ -31,44 +31,88 @@ const productList = [
     { id: "NET-001", name: "TP-Link AC1300 Mini Wireless MU-MIMO USB Adapter", category: "Other EUC Devices" }
 ];
 
-// Generate Product List Dynamically
-function generateProductList() {
-    const productContainer = document.getElementById("product-list");
-    productContainer.innerHTML = ""; // Clear previous products
+// Generate Product Categories Dynamically
+function generateProductCategories() {
+    const productCategoriesDiv = document.getElementById("product-categories");
+    productCategoriesDiv.innerHTML = "";
 
-    productList.forEach(product => {
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.id = product.id;
-        checkbox.value = product.name;
+    const categories = [...new Set(productList.map(product => product.category))];
+    categories.forEach(category => {
+        const categoryDiv = document.createElement("div");
+        categoryDiv.className = "category";
 
-        const label = document.createElement("label");
-        label.htmlFor = product.id;
-        label.textContent = `${product.name} (${product.category})`;
+        const categoryHeader = document.createElement("h3");
+        categoryHeader.textContent = category;
+        categoryDiv.appendChild(categoryHeader);
 
-        const div = document.createElement("div");
-        div.appendChild(checkbox);
-        div.appendChild(label);
+        const categoryList = productList.filter(product => product.category === category);
+        categoryList.forEach(product => {
+            const productDiv = document.createElement("div");
+            productDiv.className = "product-item";
 
-        productContainer.appendChild(div);
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.id = product.id;
+
+            const label = document.createElement("label");
+            label.htmlFor = product.id;
+            label.textContent = `${product.name}`;
+
+            const quantityInput = document.createElement("input");
+            quantityInput.type = "number";
+            quantityInput.min = 0;
+            quantityInput.value = 0;
+            quantityInput.dataset.productId = product.id;
+
+            productDiv.appendChild(checkbox);
+            productDiv.appendChild(label);
+            productDiv.appendChild(quantityInput);
+            categoryDiv.appendChild(productDiv);
+        });
+
+        productCategoriesDiv.appendChild(categoryDiv);
     });
 }
 
 // Parse Email and Fill Form
 function parseEmailAndFillForm() {
     const emailContent = document.getElementById("email_input").value;
-    let deviceCount = 0;
 
+    // Extract customer details
+    const customerNameMatch = emailContent.match(/Customer Name:\s*([^\n]+)/i);
+    const companyNameMatch = emailContent.match(/Company:\s*([^\n]+)/i);
+
+    document.getElementById("customer_name").value = customerNameMatch ? customerNameMatch[1].trim() : "";
+    document.getElementById("company_name").value = companyNameMatch ? companyNameMatch[1].trim() : "";
+
+    // Reset quantities
     productList.forEach(product => {
-        const match = emailContent.match(new RegExp(`(\\d+)\\s+${product.name.replace(/["'\\s]/g, "\\s*")}`, "i"));
+        document.querySelector(`input[data-product-id="${product.id}"]`)?.value = 0;
+    });
+
+    let unknownProducts = [];
+    productList.forEach(product => {
+        const match = emailContent.match(new RegExp(`${product.name}\\s*\\(([^)]+)\\)`, "i"));
         if (match) {
-            const count = parseInt(match[1]);
-            document.getElementById(product.id).checked = true;
-            deviceCount += count;
+            const quantity = parseInt(match[1].replace(/[^0-9]/g, ""));
+            if (!isNaN(quantity)) {
+                document.getElementById(product.id)?.checked = true;
+                document.querySelector(`input[data-product-id="${product.id}"]`)?.value = quantity;
+            }
+        } else {
+            const unknownMatch = emailContent.match(new RegExp(`${product.name}`, "i"));
+            if (unknownMatch) {
+                unknownProducts.push(`${product.name}`);
+            }
         }
     });
 
-    document.getElementById("device_count").value = deviceCount || 1; // Default to 1 if no devices found
+    // Add unknown products to notes
+    if (unknownProducts.length > 0) {
+        const additionalNotes = document.getElementById("additional_notes");
+        additionalNotes.value += `\n\nUnknown Products Requested:\n${unknownProducts.join("\n")}`;
+    }
+
     showModal("Form filled successfully!", "Confirmation");
 }
 
@@ -76,42 +120,48 @@ function parseEmailAndFillForm() {
 function calculateAndDisplay(event) {
     event.preventDefault();
 
-    const selectedProducts = productList.filter(product => document.getElementById(product.id).checked);
-    const baseHours = parseInt(document.getElementById("device_count").value || 1);
-    const serviceType = document.getElementById("service_type").value;
+    const selectedProducts = productList
+        .filter(product => document.getElementById(product.id)?.checked)
+        .map(product => {
+            const quantity = parseInt(document.querySelector(`input[data-product-id="${product.id}"]`).value || 0);
+            return { ...product, quantity };
+        })
+        .filter(product => product.quantity > 0);
+
+    const baseHours = selectedProducts.length * 1; // Base hours per product
     const urgencyLevel = document.getElementById("urgency_level").value;
     const afterHours = document.getElementById("after_hours").value === "Yes";
-
-    const serviceTypeMultipliers = {
-        "Remote Support": 0.8,
-        "Onsite Standard": 1.0,
-        "Onsite Urgent": 1.5,
-        "Multi-Site Deployment": 1.3
-    };
-
-    const urgencyMultipliers = {
-        "Standard": 1.0,
-        "Urgent": 1.2,
-        "Emergency": 1.5
-    };
-
-    const multiplier = (serviceTypeMultipliers[serviceType] || 1.0) * (urgencyMultipliers[urgencyLevel] || 1.0);
-    const adjustedHours = Math.round(baseHours * multiplier + (selectedProducts.length * 0.5));
-    const totalCost = adjustedHours * 100 + (afterHours ? 200 : 0); // Add after-hours surcharge
+    const urgencyMultipliers = { Standard: 1.0, Urgent: 1.2, Emergency: 1.5 };
+    const adjustedHours = Math.round(baseHours * urgencyMultipliers[urgencyLevel] + (afterHours ? 2 : 0));
+    const totalCost = selectedProducts.reduce((sum, product) => sum + product.price * product.quantity, 0) + adjustedHours * 100;
 
     document.getElementById("total-hours").textContent = adjustedHours;
     document.getElementById("total-cost").textContent = totalCost.toFixed(2);
 
-    generateBarcodeAndQRCode(`OW-${Math.random().toString(36).substr(2, 9)}`);
-    document.getElementById("results").style.display = "block";
+    // Update Results Table
+    const quoteTableBody = document.getElementById("quote-table-body");
+    quoteTableBody.innerHTML = "";
+    selectedProducts.forEach(product => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${product.name}</td>
+            <td>${product.category}</td>
+            <td>${product.quantity}</td>
+            <td>$${product.price.toFixed(2)}</td>
+            <td>$${(product.price * product.quantity).toFixed(2)}</td>
+        `;
+        quoteTableBody.appendChild(row);
+    });
 
-    showModal(`Total Cost: AUD $${totalCost.toFixed(2)}`, "Quote Generated");
+    // Generate Barcode
+    generateBarcode(`OW-${Math.random().toString(36).substr(2, 9)}`);
+    document.getElementById("results").style.display = "block";
+    document.getElementById("barcode-container").style.display = "block";
 }
 
-// Generate Barcode and QR Code
-function generateBarcodeAndQRCode(uniqueId) {
+// Generate Barcode
+function generateBarcode(uniqueId) {
     JsBarcode("#barcode", uniqueId, { format: "CODE128", width: 2, height: 100 });
-    new QRCode(document.getElementById("qrcode"), uniqueId);
 }
 
 // Suggest Installation Dates
@@ -119,46 +169,59 @@ function suggestDates(event) {
     event.preventDefault();
 
     const today = new Date();
-    const options = [];
-    for (let i = 1; i <= 3; i++) {
-        let futureDate = new Date();
-        futureDate.setDate(today.getDate() + i);
-        options.push(futureDate.toISOString().split("T")[0]);
-    }
+    const randomDate = () => {
+        const date = new Date(today.getTime() + Math.random() * 10 * 24 * 60 * 60 * 1000); // Random date within 10 days
+        return date.toISOString().split("T")[0];
+    };
 
-    showModal(`Suggested Dates:\n${options.join("\n")}`, "Suggested Dates");
+    const suggestedDate = randomDate();
+    const suggestedTime = ["9:00 AM", "1:00 PM", "3:00 PM"][Math.floor(Math.random() * 3)]; // Random time
+
+    document.getElementById("installation_date").value = suggestedDate;
+    showModal(`Suggested Date & Time: ${suggestedDate} at ${suggestedTime}`, "Suggested Dates");
 }
 
-// Confirm Appointment
+// Confirm Appointment and Send Email
 function confirmAppointment(event) {
     event.preventDefault();
 
-    const selectedDate = document.getElementById("installation_date").value;
-    if (!selectedDate) {
+    const customerName = document.getElementById("customer_name").value.trim();
+    const companyName = document.getElementById("company_name").value.trim();
+    const installationDate = document.getElementById("installation_date").value.trim();
+    const totalCost = parseFloat(document.getElementById("total-cost").textContent.replace("USD $", ""));
+
+    if (!installationDate) {
         showModal("Please select an installation date before confirming.", "Error");
         return;
     }
 
-    showModal(`Appointment confirmed for ${selectedDate}`, "Confirmation");
+    const emailSubject = "New EUC Job Appointment Confirmation";
+    const emailBody = `
+        Customer Name: ${customerName}\n
+        Company Name: ${companyName}\n
+        Installation Date: ${installationDate}\n
+        Total Cost: USD $${totalCost.toFixed(2)}\n
+    `;
+
+    sendEmail("troy.latter@unisys.com", emailSubject, emailBody);
+    showModal("Appointment confirmed and email sent!", "Confirmation");
 }
 
 // Export to CSV
 function exportToCSV() {
-    const selectedProducts = productList
-        .filter(product => document.getElementById(product.id).checked)
-        .map(product => product.name);
-
     const csvContent = "data:text/csv;charset=utf-8," + [
-        ["Membership Number", "Installation Date", "Devices", "Service Type", "Urgency Level", "After-Hours", "Total Cost"],
-        [
-            document.getElementById("membership_number").value,
-            document.getElementById("installation_date").value,
-            selectedProducts.join(", "),
-            document.getElementById("service_type").value,
-            document.getElementById("urgency_level").value,
-            document.getElementById("after_hours").value,
-            `AUD $${document.getElementById("total-cost").textContent}`
-        ]
+        ["Customer Name", "Company Name", "Product", "Category", "Quantity", "Price", "Total"],
+        ...productList
+            .filter(product => document.getElementById(product.id)?.checked)
+            .map(product => [
+                document.getElementById("customer_name").value,
+                document.getElementById("company_name").value,
+                product.name,
+                product.category,
+                document.querySelector(`input[data-product-id="${product.id}"]`).value,
+                `$${product.price.toFixed(2)}`,
+                `$${(product.price * document.querySelector(`input[data-product-id="${product.id}"]`).value).toFixed(2)}`
+            ])
     ].map(row => row.join(",")).join("\n");
 
     const downloadLink = document.createElement("a");
@@ -175,19 +238,23 @@ function printToPDF() {
     doc.setFontSize(16);
     doc.text("EUC Job Pricing Quote", 10, 10);
 
-    const selectedProducts = productList
-        .filter(product => document.getElementById(product.id).checked)
-        .map(product => product.name);
+    const customerName = document.getElementById("customer_name").value.trim();
+    const companyName = document.getElementById("company_name").value.trim();
+    const totalCost = parseFloat(document.getElementById("total-cost").textContent.replace("USD $", ""));
 
     let y = 20;
     doc.setFontSize(12);
-    doc.text(`Membership Number: ${document.getElementById("membership_number").value}`, 10, y += 10);
-    doc.text(`Installation Date: ${document.getElementById("installation_date").value}`, 10, y += 10);
-    doc.text(`Devices: ${selectedProducts.join(", ")}`, 10, y += 10);
-    doc.text(`Service Type: ${document.getElementById("service_type").value}`, 10, y += 10);
-    doc.text(`Urgency Level: ${document.getElementById("urgency_level").value}`, 10, y += 10);
-    doc.text(`After-Hours: ${document.getElementById("after_hours").value}`, 10, y += 10);
-    doc.text(`Total Cost: AUD $${document.getElementById("total-cost").textContent}`, 10, y += 10);
+    doc.text(`Customer Name: ${customerName}`, 10, y += 10);
+    doc.text(`Company Name: ${companyName}`, 10, y += 10);
+
+    productList
+        .filter(product => document.getElementById(product.id)?.checked)
+        .forEach(product => {
+            const quantity = document.querySelector(`input[data-product-id="${product.id}"]`).value;
+            doc.text(`${product.name} (${product.category}) - Quantity: ${quantity}, Price: $${product.price.toFixed(2)}, Total: $${(product.price * quantity).toFixed(2)}`, 10, y += 10);
+        });
+
+    doc.text(`Total Cost: USD $${totalCost.toFixed(2)}`, 10, y += 10);
 
     // Add Logos
     const logos = [
@@ -205,45 +272,17 @@ function printToPDF() {
 }
 
 // Send Email Confirmation
-function sendEmailConfirmation() {
-    const recipient = "troy.latter@unisys.com";
-    const subject = "New EUC Job Appointment Confirmation";
-    const body = `
-        Membership Number: ${document.getElementById("membership_number").value}\n
-        Installation Date: ${document.getElementById("installation_date").value}\n
-        Service Type: ${document.getElementById("service_type").value}\n
-        Total Cost: AUD $${document.getElementById("total-cost").textContent}
-    `;
-
-    const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+function sendEmail(to, subject, body) {
+    const mailtoLink = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailtoLink;
 }
 
-// Modal Functionality
-function showModal(message, title = "Confirmation") {
-    const modalTitle = document.createElement("h3");
-    modalTitle.id = "modal-title";
-    modalTitle.textContent = title;
-
-    const modalMessage = document.createElement("p");
-    modalMessage.id = "confirmation-message";
-    modalMessage.textContent = message;
-
-    const modalCloseButton = document.createElement("button");
-    modalCloseButton.onclick = closeModal;
-    modalCloseButton.textContent = "Close";
-
+// Show Modal
+function showModal(message, title) {
+    const modalTitle = document.getElementById("modal-title");
+    const modalMessage = document.getElementById("modal-message");
     const modalDiv = document.getElementById("confirmation-modal");
-    modalDiv.innerHTML = "";
-    modalDiv.appendChild(modalTitle);
-    modalDiv.appendChild(modalMessage);
-    modalDiv.appendChild(modalCloseButton);
-    modalDiv.style.display = "flex";
-}
 
-function closeModal() {
-    document.getElementById("confirmation-modal").style.display = "none";
-}
-
-// Initialize Product List
-window.onload = generateProductList;
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    modalDiv.style.display =
