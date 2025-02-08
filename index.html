@@ -18,38 +18,30 @@
             <img class="logo" src="assets/geeks2u-logo.png" alt="Geeks2u Logo">
         </header>
 
-        <!-- Email Input for Auto-Fill -->
+        <!-- Email Input -->
         <section>
             <label for="email_input">Paste Email Request:</label>
-            <textarea id="email_input" rows="4" placeholder="Paste email here..."></textarea>
+            <textarea id="email_input" rows="6" placeholder="Paste email here..."></textarea>
             <button onclick="parseEmailAndFillForm()">Auto-Fill Form</button>
         </section>
 
         <!-- Product Selection -->
         <section>
             <h2>Select Products:</h2>
-            <div id="product-list"></div>
+            <div id="product-categories"></div>
         </section>
 
         <!-- Service Details -->
         <section>
             <h2>Service Details</h2>
-            <label for="membership_number">Officeworks Membership Number:</label>
-            <input type="text" id="membership_number" placeholder="Enter Membership Number">
+            <label for="customer_name">Customer Name:</label>
+            <input type="text" id="customer_name" placeholder="Enter Customer Name">
+
+            <label for="company_name">Company Name:</label>
+            <input type="text" id="company_name" placeholder="Enter Company Name">
 
             <label for="installation_date">Preferred Installation Date:</label>
             <input type="date" id="installation_date">
-
-            <label for="device_count">Number of Devices:</label>
-            <input type="number" id="device_count" min="1" value="1">
-
-            <label for="service_type">Service Type:</label>
-            <select id="service_type">
-                <option value="Remote Support">Remote Support</option>
-                <option value="Onsite Standard">Onsite Standard</option>
-                <option value="Onsite Urgent">Onsite Urgent</option>
-                <option value="Multi-Site Deployment">Multi-Site Deployment</option>
-            </select>
 
             <label for="urgency_level">Urgency Level:</label>
             <select id="urgency_level">
@@ -81,13 +73,34 @@
         <!-- Results Section -->
         <section id="results" style="display: none;">
             <h2>Quote Summary</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="quote-table-body"></tbody>
+            </table>
             <p><strong>Total Billable Hours:</strong> <span id="total-hours">0</span> hours</p>
-            <p><strong>Total Cost:</strong> AUD $<span id="total-cost">0.00</span></p>
-            <div class="barcode-qr">
+            <p><strong>Total Cost:</strong> USD $<span id="total-cost">0.00</span></p>
+            <div class="barcode-container" id="barcode-container" style="display: none; margin-top: 20px;">
+                <h3>Unique Barcode</h3>
                 <canvas id="barcode"></canvas>
-                <div id="qrcode"></div>
             </div>
         </section>
+
+        <!-- Modal for Confirmation -->
+        <div id="confirmation-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h3 id="modal-title">Confirmation</h3>
+                <p id="modal-message"></p>
+                <button onclick="closeModal()">Close</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
