@@ -1,7 +1,7 @@
 {
   "name": "euc-job-pricing",
   "version": "1.0.0",
-  "description": "EUC Job Pricing Calculator with Google Calendar and Dark Mode",
+  "description": "EUC Job Pricing Calculator",
   "scripts": {
     "build": "echo 'No build needed'",
     "start": "live-server"
