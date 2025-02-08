@@ -20,15 +20,14 @@ body {
     box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.25);
 }
 
-/* Buttons */
+/* Buttons - Modern Small Design */
 button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border-radius: 6px;
-    font-size: 16px;
+    padding: 8px 14px;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
+    border-radius: 6px;
+    border: none;
     transition: all 0.3s ease-in-out;
 }
 
@@ -37,9 +36,76 @@ button:hover {
     transform: translateY(-2px);
 }
 
-/* Dark Mode Button */
-.calendar-btn {
-    background: #34A853;
+.btn-custom {
+    background: #007BFF;
     color: white;
+}
+
+.btn-custom:hover {
+    background: #0056b3;
+}
+
+/* Product Selection */
+.product-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.product-options label {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    width: 250px;
+}
+
+.product-options input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Results Section */
+#results {
+    margin-top: 20px;
+    padding: 12px;
+    border: 2px solid #00529F;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    font-size: 18px;
     font-weight: bold;
+    text-align: center;
+}
+
+/* Barcode & QR Code Containers */
+#barcode-container, #qrcode-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+canvas, #qrcode {
+    margin: 10px auto;
+    display: block;
+}
+
+/* Loading Indicator */
+#loading {
+    display: none;
+    text-align: center;
+    margin-top: 15px;
+}
+
+#loading img {
+    width: 50px;
+    animation: rotate 1s linear infinite;
+}
+
+/* Animations */
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
