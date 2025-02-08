@@ -1,16 +1,17 @@
 # EUC Job Pricing Calculator
 
 ## Overview
-The **EUC Job Pricing Calculator** is an intuitive web application designed to simplify the process of estimating job costs for enterprise IT deployments. Users can input service details manually or parse data from email requests. The application supports product selection, barcode/QR code generation, and PDF/CSV exports for professional quoting.
+The **EUC Job Pricing Calculator** is an interactive web-based tool designed to simplify IT service cost estimation. It allows users to input service requests manually or via email parsing, select additional products, generate barcodes/QR codes, and produce professional PDF/CSV quotes.
 
 ## Features
-- **Email Parsing:** Automatically extracts relevant job details from pasted emails.
-- **Product Selection:** Choose from a list of predefined IT products and services.
-- **Dynamic Pricing Calculation:** Estimates billable hours and total costs based on service type and selected products.
-- **Barcode & QR Code Generation:** Generates unique identifiers for each job.
-- **Export Options:** Save quotes as **CSV** or **PDF**.
-- **Modern UI:** Sleek and responsive design with dark mode support.
+- **Email Parsing:** Extracts job details automatically from pasted emails.
+- **Product Selection:** Choose from a wide range of IT products and services.
+- **Live Quote Calculation:** Displays cost estimates based on job parameters.
+- **Barcode & QR Code Generation:** Automatically generates unique job identifiers.
+- **Export Options:** Save quotes in **CSV** (aggregated history) and **PDF** formats.
+- **Modern UI:** Responsive design with a toggle for **dark mode**.
 - **Google Calendar Integration:** Schedule jobs directly from the interface.
+- **Email Confirmation:** Sends an appointment confirmation email to the requester.
 
 ## Installation & Usage
 ### 1. Clone the Repository
@@ -28,14 +29,13 @@ The **EUC Job Pricing Calculator** is an intuitive web application designed to s
 ```
 
 ## Deployment
-This project is configured for **Netlify** deployment.
-To deploy:
-1. Link the repository to **Netlify**.
-2. Ensure **`netlify.toml`** is properly configured.
-3. Trigger a new deployment.
+This project is **Netlify-ready**. To deploy:
+1. Connect the repository to **Netlify**.
+2. Ensure **`netlify.toml`** is correctly configured.
+3. Deploy and test the live version.
 
 ## Contributing
-Contributions are welcome! Please submit a pull request with any improvements.
+Contributions are welcome! If you have improvements, submit a pull request.
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
