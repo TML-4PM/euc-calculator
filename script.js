@@ -7,7 +7,7 @@ function parseEmailAndFillForm() {
     }
 
     const deviceMatch = emailContent.match(/(\d+)\s*(laptops?|desktops?|tablets?|devices?)/i);
-    const deviceCount = deviceMatch ? parseInt(deviceMatch[1], 10) : 5;
+    const deviceCount = deviceMatch ? parseInt(deviceMatch[1], 10) : 0;
     document.getElementById("device_count").value = deviceCount;
 
     const serviceTypeMap = {
@@ -32,7 +32,7 @@ function calculateAndDisplay(event) {
     event.preventDefault();
 
     const baseHours = parseFloat(document.getElementById("base_hours").value || 1);
-    const deviceCount = parseInt(document.getElementById("device_count").value || 1, 10);
+    const deviceCount = parseInt(document.getElementById("device_count").value || 0, 10);
     const serviceType = document.getElementById("service_type").value;
     
     const serviceTypeMultipliers = {
@@ -60,6 +60,20 @@ function calculateAndDisplay(event) {
         <p><strong>Selected Products:</strong> ${selectedProducts.join(", ") || "None"}</p>
     `;
     generateBarcodeAndQRCode(`OW-${Math.random().toString(36).substr(2, 9)}`);
+}
+
+// Confirm Appointment & Send Email
+function confirmAppointment(event) {
+    event.preventDefault();
+    const email = document.getElementById("email_input").value.trim() || "troy.latter@unisys.com";
+    const selectedDate = document.getElementById("installation_date").value;
+    if (!selectedDate) {
+        showModal("Please select an installation date before confirming.", "Error");
+        return;
+    }
+
+    const emailBody = `Your appointment is confirmed for ${selectedDate}.\n\nQuote details:\n${document.getElementById("results").innerText}`;
+    window.location.href = `mailto:${email}?subject=Appointment Confirmation&body=${encodeURIComponent(emailBody)}`;
 }
 
 // Generate Barcode and QR Code
@@ -93,7 +107,7 @@ function printToPDF() {
     
     doc.text("ABN: 123-456-789 | Business: Geeks2U Services", 10, 90);
     doc.text("Date: " + new Date().toLocaleDateString(), 10, 100);
-
+    doc.addImage(document.querySelector('.logo').src, 'PNG', 150, 10, 40, 15);
     doc.save("quote.pdf");
 }
 
