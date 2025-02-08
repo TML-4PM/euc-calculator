@@ -1,46 +1,20 @@
 # EUC Job Pricing Calculator
 
-## Overview
-The **EUC Job Pricing Calculator** is an interactive web-based tool designed to simplify IT service cost estimation. It allows users to input service requests manually or via email parsing, select additional products, generate barcodes/QR codes, and produce professional PDF/CSV quotes.
+The **EUC Job Pricing Calculator** is a web application designed to assist in estimating job pricing for End-User Computing (EUC) services. It allows users to input various parameters, select additional products and services, and receive a comprehensive cost estimate.
 
 ## Features
-- **Email Parsing:** Extracts job details automatically from pasted emails.
-- **Product Selection:** Choose from a wide range of IT products and services.
-- **Live Quote Calculation:** Displays cost estimates based on job parameters.
-- **Barcode & QR Code Generation:** Automatically generates unique job identifiers.
-- **Export Options:** Save quotes in **CSV** (aggregated history) and **PDF** formats.
-- **Modern UI:** Responsive design with a toggle for **dark mode**.
-- **Google Calendar Integration:** Schedule jobs directly from the interface.
-- **Email Confirmation:** Sends an appointment confirmation email to the requester.
 
-## Installation & Usage
-### 1. Clone the Repository
-```sh
- git clone https://github.com/your-repo/EUC-Job-Pricing.git
- cd EUC-Job-Pricing
-```
-### 2. Install Dependencies
-```sh
- npm install
-```
-### 3. Run Locally
-```sh
- npm start
-```
+- **Email Parsing**: Automatically extract relevant information from pasted email requests to pre-fill the form.
+- **Product Selection**: Choose from a list of additional products and services to include in the estimate.
+- **Variable Inputs**: Specify job variables such as the number of stairs, distance to the site, urgency level, and after-hours service requirements.
+- **Dynamic Calculations**: Real-time computation of total cost based on user inputs.
+- **Export Options**: Export the estimate to CSV or PDF formats.
+- **Appointment Confirmation**: Confirm appointments and schedule them in Google Calendar.
+- **Dark Mode**: Toggle between light and dark themes for optimal user experience.
 
-## Deployment
-This project is **Netlify-ready**. To deploy:
-1. Connect the repository to **Netlify**.
-2. Ensure **`netlify.toml`** is correctly configured.
-3. Deploy and test the live version.
+## Installation
 
-## Contributing
-Contributions are welcome! If you have improvements, submit a pull request.
-
-## License
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-### **Created by Troy Latter** 🚀
-🔗 [LinkedIn Profile](https://www.linkedin.com/in/theinnovater/)
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/yourusername/euc-job-pricing-calculator.git
+   cd euc-job-pricing-calculator
