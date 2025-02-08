@@ -1,17 +1,16 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
     background-color: #f8f9fa;
-    color: #333;
+    color: #343a40;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
 .container {
-    max-width: 900px;
-    margin: 20px auto;
+    margin-top: 20px;
     padding: 20px;
-    background-color: #fff;
+    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -22,14 +21,13 @@ body {
 }
 
 h2 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin: 0;
 }
 
 /* Form Styles */
 .form-label {
     font-weight: bold;
-    margin-top: 10px;
 }
 
 .form-control {
@@ -43,50 +41,43 @@ h2 {
 
 /* Product Selection Styles */
 .product-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 10px;
 }
 
-.product-options .form-check {
-    flex: 1 1 calc(50% - 10px);
-}
-
-/* Results Section */
+/* Results Section Styles */
 #results {
     margin-top: 20px;
     padding: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #ced4da;
     border-radius: 5px;
-    background-color: #f1f1f1;
+    background-color: #e9ecef;
 }
 
-/* Barcode & QR Code */
-#barcode, #qrcode {
-    margin: 10px;
-}
-
-/* Dark Mode */
+/* Dark Mode Styles */
 body.dark-mode {
-    background-color: #333;
+    background-color: #343a40;
     color: #f8f9fa;
 }
 
 body.dark-mode .container {
-    background-color: #444;
+    background-color: #495057;
 }
 
 body.dark-mode .form-control {
-    background-color: #555;
+    background-color: #6c757d;
     color: #f8f9fa;
 }
 
 body.dark-mode .btn-custom {
-    background-color: #666;
+    background-color: #6c757d;
     color: #f8f9fa;
 }
 
 body.dark-mode #results {
-    background-color: #555;
-    border-color: #666;
+    background-color: #6c757d;
+    color: #f8f9fa;
 }
