@@ -16,34 +16,6 @@
     
     <!-- JavaScript -->
     <script src="script.js" defer></script>
-
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            max-width: 700px;
-            background: white;
-            padding: 30px;
-            margin-top: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        .logo {
-            max-height: 60px;
-            margin-right: 15px;
-        }
-        .btn-custom {
-            width: 100%;
-            margin-top: 10px;
-        }
-        .loading-spinner {
-            display: none;
-            text-align: center;
-            margin-top: 10px;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -54,7 +26,7 @@
         </div>
         <h2 class="text-center">EUC Job Pricing Calculator</h2>
 
-        <!-- Email Input for Auto-Fill -->
+        <!-- Email Input -->
         <div class="mb-4">
             <label for="email_input" class="form-label">Paste Email Request:</label>
             <textarea id="email_input" class="form-control" rows="3" placeholder="Paste email here..."></textarea>
@@ -101,6 +73,8 @@
             <button class="btn btn-info btn-custom" onclick="confirmAppointment(event)">Confirm Appointment</button>
             <button class="btn btn-dark btn-custom" onclick="exportToCSV()">Export to CSV</button>
             <button class="btn btn-secondary btn-custom" onclick="printToPDF()">Print to PDF</button>
+            <button class="btn btn-success btn-custom" onclick="scheduleInGoogleCalendar()">📅 Schedule in Google Calendar</button>
+            <button class="btn btn-dark btn-custom" onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
 
             <!-- Loading Indicator -->
             <div id="loading" class="loading-spinner">
