@@ -1,1 +1,3 @@
-
+[build]
+  command = "echo 'No build process needed'"
+  publish = "/src/" # Point to the src/ folder containing index.html
