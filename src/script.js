@@ -8,15 +8,28 @@ function parseEmailAndFillForm() {
     document.getElementById("device_count").value = deviceCount;
 
     // Extract service type
-    const serviceMatch = emailContent.match(/(Remote Support|Onsite Standard|Onsite Urgent|Multi-Site Deployment)/i);
-    const serviceType = serviceMatch ? serviceMatch[1] : "Onsite Standard";
+    const serviceTypePatterns = [
+        /Remote Support/i,
+        /Onsite\s+Standard/i,
+        /Onsite\s+Urgent/i,
+        /Multi-Site\s+Deployment/i
+    ];
+    let serviceType = "Onsite Standard"; // Default fallback
+    for (const pattern of serviceTypePatterns) {
+        if (pattern.test(emailContent)) {
+            serviceType = emailContent.match(pattern)[0].trim();
+            break;
+        }
+    }
     document.getElementById("service_type").value = serviceType;
 
     showModal("Form filled successfully!", "Confirmation");
 }
 
 // Suggest Installation Dates
-function suggestDates() {
+function suggestDates(event) {
+    event.preventDefault(); // Prevent form submission
+
     const today = new Date();
     const options = [];
     for (let i = 1; i <= 3; i++) {
@@ -28,7 +41,9 @@ function suggestDates() {
 }
 
 // Confirm Appointment
-function confirmAppointment() {
+function confirmAppointment(event) {
+    event.preventDefault(); // Prevent form submission
+
     const selectedDate = document.getElementById("installation_date").value;
     if (!selectedDate) {
         showModal("Please select an installation date before confirming.", "Error");
@@ -38,7 +53,9 @@ function confirmAppointment() {
 }
 
 // Calculate and Display Quote
-function calculateAndDisplay() {
+function calculateAndDisplay(event) {
+    event.preventDefault(); // Prevent form submission
+
     showLoading();
 
     const baseHours = parseInt(document.getElementById("base_hours").value || 1);
@@ -62,7 +79,17 @@ function calculateAndDisplay() {
         <p><strong>Total Cost:</strong> AUD $${totalCost.toFixed(2)}</p>
     `;
 
+    generateBarcodeAndQRCode(`OW-${Math.random().toString(36).substr(2, 9)}`);
+    document.getElementById("barcode-container").style.display = "block";
+    document.getElementById("qrcode-container").style.display = "block";
+
     hideLoading();
+}
+
+// Generate Barcode and QR Code
+function generateBarcodeAndQRCode(uniqueId) {
+    JsBarcode("#barcode", uniqueId, { format: "CODE128", width: 2, height: 100 });
+    new QRCode(document.getElementById("qrcode"), uniqueId);
 }
 
 // Export Results to CSV
