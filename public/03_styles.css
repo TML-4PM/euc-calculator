@@ -1,42 +1,42 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 20px;
-    background-color: #00529F; /* Officeworks blue */
+    padding: 0;
+    background-color: #00529F;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
+/* Main Container */
 .container {
+    width: 90%;
     max-width: 800px;
-    margin: auto;
-    padding: 20px;
     background-color: white;
+    padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     color: #333;
 }
 
-/* Logo styling */
+/* Logo Container */
 .logo-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .logo {
-    width: 150px;
+    max-width: 40%; /* Ensures logos scale */
     height: auto;
 }
 
-/* Center header */
-h1 {
-    text-align: center;
-    color: #00529F;
-    margin-top: 0;
-}
-
-/* Labels */
+/* Form Styles */
 label {
     display: block;
     margin-top: 10px;
@@ -44,8 +44,7 @@ label {
     color: #00529F;
 }
 
-/* Input fields */
-textarea, input[type="text"], input[type="number"], select {
+textarea, input, select {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -55,31 +54,25 @@ textarea, input[type="text"], input[type="number"], select {
     font-size: 14px;
 }
 
-/* Make select boxes bigger for multi-selection */
-select[multiple] {
-    height: auto;
-    min-height: 120px;
-}
-
-/* Buttons */
+/* Button Styles */
 button {
-    display: block;
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     background-color: #00529F;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    transition: background-color 0.3s;
 }
 
 button:hover {
     background-color: #003A75;
 }
 
-/* Barcode and QR Code */
+/* Barcode & QR Code */
 .barcode-container, .qrcode-container {
     margin-top: 20px;
     text-align: center;
@@ -89,7 +82,17 @@ canvas, #qrcode {
     margin: 10px auto;
 }
 
+/* Responsive Fixes */
 @media (max-width: 768px) {
+    .logo-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo {
+        max-width: 70%;
+    }
+
     button {
         width: 100%;
     }
