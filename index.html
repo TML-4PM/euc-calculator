@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -75,7 +75,7 @@
                 <button onclick="confirmAppointment(event)">Confirm Appointment</button>
                 <button onclick="exportToCSV()">Export to CSV</button>
                 <button onclick="printToPDF()">Print to PDF</button>
-                <button onclick="scheduleInGoogleCalendar()">📅 Schedule in Google Calendar</button>
+                <button onclick="sendEmail()">Send Email</button>
             </div>
         </form>
 
