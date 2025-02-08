@@ -23,33 +23,78 @@ function parseEmailAndFillForm() {
             selectedService = type;
         }
     });
-
     document.getElementById("service_type").value = selectedService;
     showModal("Form filled successfully!", "Success");
 }
 
-// Schedule Appointment in Google Calendar
-function scheduleInGoogleCalendar() {
+// Calculate and Display Quote
+function calculateAndDisplay(event) {
+    event.preventDefault();
+
+    const baseHours = parseFloat(document.getElementById("base_hours").value || 1);
+    const deviceCount = parseInt(document.getElementById("device_count").value || 1, 10);
     const serviceType = document.getElementById("service_type").value;
-    const deviceCount = document.getElementById("device_count").value;
-    const selectedDate = document.getElementById("installation_date").value;
     
-    if (!selectedDate) {
-        showModal("Please select an installation date before scheduling.", "Error");
-        return;
-    }
+    const serviceTypeMultipliers = {
+        "Remote Support": 0.8,
+        "Onsite Standard": 1.0,
+        "Onsite Urgent": 1.5,
+        "Multi-Site Deployment": 1.3
+    };
 
-    const eventTitle = `Installation - ${serviceType}`;
-    const eventDetails = `Service Type: ${serviceType}%0ANumber of Devices: ${deviceCount}`;
+    let multiplier = serviceTypeMultipliers[serviceType] || 1.0;
+    let adjustedHours = (baseHours * multiplier + deviceCount * 0.2).toFixed(1);
+    
+    let totalCost = adjustedHours * 100;
+    
+    // Add costs for selected products
+    let selectedProducts = [];
+    document.querySelectorAll(".product:checked").forEach(item => {
+        totalCost += parseFloat(item.value);
+        selectedProducts.push(item.getAttribute("data-name") + " ($" + item.value + ")");
+    });
 
-    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&details=${eventDetails}&dates=${selectedDate.replace(/-/g, '')}T090000Z/${selectedDate.replace(/-/g, '')}T100000Z`;
-
-    window.open(googleCalendarUrl, '_blank');
+    document.getElementById("results").innerHTML = `
+        <h4>Total Cost: AUD $${totalCost.toFixed(2)}</h4>
+        <p><strong>Billable Hours:</strong> ${adjustedHours} hours</p>
+        <p><strong>Selected Products:</strong> ${selectedProducts.join(", ") || "None"}</p>
+    `;
+    generateBarcodeAndQRCode(`OW-${Math.random().toString(36).substr(2, 9)}`);
 }
 
-// Dark Mode Toggle
-function toggleDarkMode() {
-    document.body.classList.toggle("dark-mode");
+// Generate Barcode and QR Code
+function generateBarcodeAndQRCode(uniqueId) {
+    document.getElementById("qrcode").innerHTML = ""; // Reset QR code container
+    JsBarcode("#barcode", uniqueId, { format: "CODE128", width: 2, height: 100 });
+    new QRCode(document.getElementById("qrcode"), uniqueId);
+}
+
+// Print Quote to PDF
+function printToPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.text("EUC Job Pricing Quote", 10, 10);
+
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Officeworks Membership: ${document.getElementById("membership_number").value}`, 10, 30);
+    doc.text(`Service Type: ${document.getElementById("service_type").value}`, 10, 40);
+    doc.text(`Devices: ${document.getElementById("device_count").value}`, 10, 50);
+    doc.text(`Total Cost: AUD $${document.getElementById("results").textContent.split("AUD $")[1]?.trim() || "N/A"}`, 10, 60);
+    
+    let selectedProducts = [];
+    document.querySelectorAll(".product:checked").forEach(item => {
+        selectedProducts.push(item.getAttribute("data-name") + " ($" + item.value + ")");
+    });
+    doc.text(`Selected Products: ${selectedProducts.join(", ") || "None"}`, 10, 70);
+    
+    doc.text("ABN: 123-456-789 | Business: Geeks2U Services", 10, 90);
+    doc.text("Date: " + new Date().toLocaleDateString(), 10, 100);
+
+    doc.save("quote.pdf");
 }
 
 // Utility Functions
