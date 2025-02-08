@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -31,68 +32,3 @@ header h1 {
     margin: 0;
     font-size: 24px;
 }
-
-section {
-    background: #fff;
-    margin: 20px 0;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-label {
-    display: block;
-    margin: 10px 0 5px;
-}
-
-input[type="text"],
-input[type="number"],
-input[type="date"],
-textarea,
-select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    display: inline-block;
-    background: #0779e4;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-    margin-top: 10px;
-}
-
-button:hover {
-    background: #005bb5;
-}
-
-#results {
-    text-align: center;
-    padding: 20px;
-    background: #e2e2e2;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-
-.barcode-qr {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.barcode-qr canvas,
-.barcode-qr div {
-    margin: 0 10px;
-}
-
-.dark-mode {
-    background-color:
-::contentReference[oaicite:0]{index=0}
- 
