@@ -1,6 +1,11 @@
 [build]
-  publish = "."
-  command = ""
+  command = "npm run build"
+  publish = "build"
+  functions = "functions"
+
+[context.production.environment]
+  NODE_VERSION = "14"
+  NPM_VERSION = "6"
 
 [[redirects]]
   from = "/*"
