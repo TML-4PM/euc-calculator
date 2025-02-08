@@ -1,6 +1,6 @@
 [build]
-  command = "npm install && npm run build"  # Ensures dependencies are installed before the build
-  publish = "public"  # Change to "dist" or the correct directory if using a different build system
+  command = "npm install"  # Ensure dependencies are installed
+  publish = "/"            # Use root directory for static sites
 
 [build.environment]
   NODE_VERSION = "18"
