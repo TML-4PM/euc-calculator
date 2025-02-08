@@ -3,8 +3,8 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #00529F;
-    color: white;
+    background-color: #f4f4f4;
+    color: black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,18 +28,21 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    flex-wrap: wrap;
 }
 
 .logo {
-    max-width: 40%; /* Ensures logos scale */
+    max-width: 120px; /* Ensure logos are correctly sized */
     height: auto;
 }
 
 /* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 label {
-    display: block;
-    margin-top: 10px;
     font-weight: bold;
     color: #00529F;
 }
@@ -47,11 +50,20 @@ label {
 textarea, input, select {
     width: 100%;
     padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
+}
+
+/* Form Layout: Grid for Better Alignment */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.form-grid label {
+    grid-column: span 2;
 }
 
 /* Button Styles */
@@ -90,7 +102,11 @@ canvas, #qrcode {
     }
 
     .logo {
-        max-width: 70%;
+        max-width: 80px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
     }
 
     button {
