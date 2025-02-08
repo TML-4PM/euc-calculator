@@ -1,11 +1,14 @@
-[build]
-  command = "npm install"  # Ensure dependencies are installed
-  publish = "/"            # Use root directory for static sites
-
-[build.environment]
-  NODE_VERSION = "18"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+{
+  "name": "euc-job-pricing",
+  "version": "1.0.0",
+  "description": "EUC Job Pricing Calculator with product selection, barcode/QR code generation, and export features",
+  "scripts": {
+    "build": "echo 'No build needed'",
+    "start": "live-server"
+  },
+  "dependencies": {
+    "jspdf": "^2.5.1",
+    "jsbarcode": "^3.11.5",
+    "qrcodejs": "1.0.0"
+  }
+}
