@@ -1,3 +1,57 @@
+// Product Data
+const products = [
+    { name: "Lenovo IdeaPad Slim 3i Chromebook", sku: "LAP-001", price: 399 },
+    { name: "Lenovo IdeaPad Duet 2-in-1 Chromebook", sku: "LAP-002", price: 499 },
+    { name: "Lenovo IdeaPad Flex 5i 14\"", sku: "LAP-003", price: 799 },
+    { name: "Acer 14\" Swift 1 Notebook", sku: "LAP-004", price: 699 },
+    { name: "ASUS E410 Notebook", sku: "LAP-005", price: 649 },
+    { name: "Logitech K375s Multi-Device Keyboard", sku: "KEY-001", price: 69.95 },
+    { name: "J.Burrows Bluetooth Keyboard Silver KB200", sku: "KEY-002", price: 49.95 },
+    { name: "Logitech Wireless Keyboard K270", sku: "KEY-003", price: 59.95 },
+    { name: "HP 24\" FHD Monitor", sku: "MON-001", price: 249 },
+    { name: "Dell 27\" UltraSharp Monitor", sku: "MON-002", price: 599 },
+    { name: "Samsung 32\" Curved Monitor", sku: "MON-003", price: 399 },
+    { name: "LG 29\" UltraWide Monitor", sku: "MON-004", price: 349 },
+    { name: "Acer 23.8\" FHD Monitor", sku: "MON-005", price: 199 },
+    { name: "Logitech H390 USB Headset", sku: "HSET-001", price: 79.95 },
+    { name: "Jabra Evolve 20 SE UC Stereo Headset", sku: "HSET-002", price: 99.95 },
+    { name: "Plantronics Blackwire 3220 USB-A Headset", sku: "HSET-003", price: 89.95 },
+    { name: "Logitech M280 Wireless Mouse", sku: "MOU-001", price: 39.95 },
+    { name: "J.Burrows Wireless Mouse Black", sku: "MOU-002", price: 29.95 },
+    { name: "Microsoft Bluetooth Mouse", sku: "MOU-003", price: 49.95 },
+    { name: "HP LaserJet Pro MFP M428fdw Printer", sku: "PRT-001", price: 699 },
+    { name: "Canon PIXMA Home TS6360 Printer", sku: "PRT-002", price: 14.00 },
+    { name: "Brother DS-640 Portable Scanner", sku: "SCN-001", price: 179 },
+    { name: "Epson Perfection V39 Flatbed Scanner", sku: "SCN-002", price: 149 },
+    { name: "Logitech C920 HD Pro Webcam", sku: "WBC-001", price: 139 },
+    { name: "Jabra Speak 510 Portable Bluetooth Speakerphone", sku: "SPK-001", price: 199 },
+    { name: "Kensington SD4700P Universal USB-C and USB 3.0 Docking Station", sku: "DOC-001", price: 299 },
+    { name: "APC Back-UPS 700VA 230V with AVR", sku: "UPS-001", price: 229 },
+    { name: "Microsoft Surface Dock 2", sku: "DOC-002", price: 419 },
+    { name: "TP-Link AC1300 Mini Wireless MU-MIMO USB Adapter", sku: "NET-001", price: 49.95 },
+    { name: "Home Office Starter Pack", sku: "BND-001", price: 1000 },
+    { name: "Professional Workstation Bundle", sku: "BND-002", price: 1800 },
+    { name: "Creative Designer Suite", sku: "BND-003", price: 1600 },
+    { name: "SmartAssist", sku: "SVC-001", price: 19.99 },
+    { name: "SmartAssist+", sku: "SVC-002", price: 29.99 }
+];
+
+// Load Products into Form
+function loadProducts() {
+    const container = document.getElementById("product-selection");
+    container.innerHTML = "";
+    products.forEach(product => {
+        container.innerHTML += `
+            <div class="form-check">
+                <input class="form-check-input product" type="checkbox" value="${product.price}" data-name="${product.name}" id="${product.sku}">
+                <label class="form-check-label" for="${product.sku}">
+                    ${product.name} - $${product.price.toFixed(2)}
+                </label>
+            </div>
+        `;
+    });
+}
+
 // Parse Email and Auto-Fill Form
 function parseEmailAndFillForm() {
     const emailContent = document.getElementById("email_input").value.trim();
@@ -34,84 +88,8 @@ function calculateAndDisplay(event) {
     const baseHours = parseFloat(document.getElementById("base_hours").value || 1);
     const deviceCount = parseInt(document.getElementById("device_count").value || 0, 10);
     const serviceType = document.getElementById("service_type").value;
-    
-    const serviceTypeMultipliers = {
-        "Remote Support": 0.8,
-        "Onsite Standard": 1.0,
-        "Onsite Urgent": 1.5,
-        "Multi-Site Deployment": 1.3
-    };
-
-    let multiplier = serviceTypeMultipliers[serviceType] || 1.0;
-    let adjustedHours = (baseHours * multiplier + deviceCount * 0.2).toFixed(1);
-    
-    let totalCost = adjustedHours * 100;
-    
-    // Add costs for selected products
-    let selectedProducts = [];
-    document.querySelectorAll(".product:checked").forEach(item => {
-        totalCost += parseFloat(item.value);
-        selectedProducts.push(item.getAttribute("data-name") + " ($" + item.value + ")");
-    });
-
-    document.getElementById("results").innerHTML = `
-        <h4>Total Cost: AUD $${totalCost.toFixed(2)}</h4>
-        <p><strong>Billable Hours:</strong> ${adjustedHours} hours</p>
-        <p><strong>Selected Products:</strong> ${selectedProducts.join(", ") || "None"}</p>
-    `;
-    generateBarcodeAndQRCode(`OW-${Math.random().toString(36).substr(2, 9)}`);
-}
-
-// Confirm Appointment & Send Email
-function confirmAppointment(event) {
-    event.preventDefault();
-    const email = document.getElementById("email_input").value.trim() || "troy.latter@unisys.com";
-    const selectedDate = document.getElementById("installation_date").value;
-    if (!selectedDate) {
-        showModal("Please select an installation date before confirming.", "Error");
-        return;
-    }
-
-    const emailBody = `Your appointment is confirmed for ${selectedDate}.\n\nQuote details:\n${document.getElementById("results").innerText}`;
-    window.location.href = `mailto:${email}?subject=Appointment Confirmation&body=${encodeURIComponent(emailBody)}`;
-}
-
-// Generate Barcode and QR Code
-function generateBarcodeAndQRCode(uniqueId) {
-    document.getElementById("qrcode").innerHTML = ""; // Reset QR code container
-    JsBarcode("#barcode", uniqueId, { format: "CODE128", width: 2, height: 100 });
-    new QRCode(document.getElementById("qrcode"), uniqueId);
-}
-
-// Print Quote to PDF
-function printToPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(16);
-    doc.text("EUC Job Pricing Quote", 10, 10);
-
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "normal");
-    doc.text(`Officeworks Membership: ${document.getElementById("membership_number").value}`, 10, 30);
-    doc.text(`Service Type: ${document.getElementById("service_type").value}`, 10, 40);
-    doc.text(`Devices: ${document.getElementById("device_count").value}`, 10, 50);
-    doc.text(`Total Cost: AUD $${document.getElementById("results").textContent.split("AUD $")[1]?.trim() || "N/A"}`, 10, 60);
-    
-    let selectedProducts = [];
-    document.querySelectorAll(".product:checked").forEach(item => {
-        selectedProducts.push(item.getAttribute("data-name") + " ($" + item.value + ")");
-    });
-    doc.text(`Selected Products: ${selectedProducts.join(", ") || "None"}`, 10, 70);
-    
-    doc.text("ABN: 123-456-789 | Business: Geeks2U Services", 10, 90);
-    doc.text("Date: " + new Date().toLocaleDateString(), 10, 100);
-    doc.addImage(document.querySelector('.logo').src, 'PNG', 150, 10, 40, 15);
-    doc.save("quote.pdf");
-}
-
-// Utility Functions
-function showModal(message, title = "Confirmation") {
-    alert(`${title}: ${message}`);
-}
+    const stairs = parseInt(document.getElementById("stairs").value || 0, 10);
+    const distance = parseFloat(document.getElementById("distance").value || 0);
+    const urgency = document.getElementBy
+::contentReference[oaicite:0]{index=0}
+ 
