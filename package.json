@@ -4,13 +4,11 @@
   "description": "A web application for calculating job pricing for EUC services.",
   "main": "index.html",
   "scripts": {
-    "build": "echo 'No build step necessary for this project.'",
     "start": "serve ."
   },
   "dependencies": {
     "serve": "^14.0.1"
   },
-  "devDependencies": {},
   "author": "Your Name",
   "license": "MIT"
 }
