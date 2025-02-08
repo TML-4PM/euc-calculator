@@ -52,18 +52,18 @@ function renderProductOptions() {
             .filter(product => product.category === category)
             .forEach(product => {
                 const productItem = document.createElement('li');
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.id = product.id;
-                checkbox.name = product.name;
-                checkbox.value = product.id;
+                const productCheckbox = document.createElement('input');
+                productCheckbox.type = 'checkbox';
+                productCheckbox.id = product.id;
+                productCheckbox.name = 'product';
+                productCheckbox.value = product.id;
 
-                const label = document.createElement('label');
-                label.htmlFor = product.id;
-                label.textContent = product.name;
+                const productLabel = document.createElement('label');
+                productLabel.htmlFor = product.id;
+                productLabel.textContent = product.name;
 
-                productItem.appendChild(checkbox);
-                productItem.appendChild(label);
+                productItem.appendChild(productCheckbox);
+                productItem.appendChild(productLabel);
                 productList.appendChild(productItem);
             });
 
@@ -74,25 +74,27 @@ function renderProductOptions() {
 
 function parseEmailAndFillForm() {
     const emailInput = document.getElementById('email_input').value;
-    const selectedProducts = [];
+    const productCheckboxes = document.querySelectorAll('input[name="product"]');
+    let deviceCount = 0;
 
-    products.forEach(product => {
-        const regex = new RegExp(product.name, 'i');
-        if (regex.test(emailInput)) {
-            selectedProducts.push(product);
-            document.getElementById(product.id).checked = true;
+    productCheckboxes.forEach(checkbox => {
+        const product = products.find(p => p.id === checkbox.value);
+        if (product && emailInput.includes(product.name)) {
+            checkbox.checked = true;
+            deviceCount++;
+        } else {
+            checkbox.checked = false;
         }
     });
 
-    const deviceCount = selectedProducts.length;
     document.getElementById('device_count').value = deviceCount;
 }
 
 function calculateAndDisplay(event) {
     event.preventDefault();
-    const selectedProducts = products.filter(product => document.getElementById(product.id).checked);
-    const totalPrice = selectedProducts.reduce((sum, product) => sum + product.price, 0);
-    const resultsDiv = document.getElementById('results');
-    results
+    const baseHours = parseFloat(document.getElementById('base_hours').value) || 0;
+    const deviceCount = parseInt(document.getElementById('device_count').value) || 0;
+    const additionalProducts = Array.from(document.querySelectorAll('input[name="product"]:checked'))
+
 ::contentReference[oaicite:0]{index=0}
  
