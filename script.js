@@ -43,59 +43,6 @@ function loadProducts() {
     products.forEach(product => {
         container.innerHTML += `
             <div class="form-check">
-                <input class="form-check-input product" type="checkbox" value="${product.price}" data-name="${product.name}" id="${product.sku}">
-                <label class="form-check-label" for="${product.sku}">
-                    ${product.name} - $${product.price.toFixed(2)}
-                </label>
-            </div>
-        `;
-    });
-}
-
-// Parse Email and Auto-Fill Form
-function parseEmailAndFillForm() {
-    const emailContent = document.getElementById("email_input").value.trim();
-    if (!emailContent) {
-        showModal("Please paste an email request first.", "Error");
-        return;
-    }
-
-    const deviceMatch = emailContent.match(/(\d+)\s*(laptops?|desktops?|tablets?|devices?)/i);
-    const deviceCount = deviceMatch ? parseInt(deviceMatch[1], 10) : 0;
-    document.getElementById("device_count").value = deviceCount;
-
-    const serviceTypeMap = {
-        "Remote Support": /remote support/i,
-        "Onsite Standard": /onsite\s+(standard|basic)/i,
-        "Onsite Urgent": /onsite\s+(urgent|priority|emergency)/i,
-        "Multi-Site Deployment": /multi-site\s+(deployment|installation)/i
-    };
-    
-    let selectedService = "Onsite Standard";
-    Object.keys(serviceTypeMap).forEach(type => {
-        if (serviceTypeMap[type].test(emailContent)) {
-            selectedService = type;
-        }
-    });
-    document.getElementById("service_type").value = selectedService;
-    showModal("Form filled successfully!", "Success");
-}
-
-// Calculate and Display Quote
-function calculateAndDisplay(event) {
-    event.preventDefault();
-
-    const baseHours = parseFloat(document.getElementById("base_hours").value || 1);
-    const deviceCount = parseInt(document.getElementById("device_count").value || 0, 10);
-    const serviceType = document.getElementById("service_type").value;
-    const stairs = parseInt(document.getElementById("stairs").value || 0, 10);
-    const distance = parseFloat(document.getElementById("distance").value || 0);
-    const urgency = document.getElementById("urgency").value;
-    const afterHours = document.getElementById("after_hours").value === "Yes";
-
-    // Base rate per hour
-    let ratePerHour = 100;
-
-    //
+                <input class="form-check-input
 ::contentReference[oaicite:0]{index=0}
  
