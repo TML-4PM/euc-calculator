@@ -1,11 +1,12 @@
 {
   "name": "euc-job-pricing-calculator",
   "version": "1.0.0",
+  "description": "EUC Job Pricing Calculator - Netlify Deployment",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
-    "build": "npm run build",
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js",
+    "build": "npm run build"
   },
   "dependencies": {
     "express": "^4.18.2",
@@ -13,9 +14,17 @@
     "cors": "^2.8.5"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "@netlify/plugin-functions-core": "^1.0.0"
   },
   "engines": {
     "node": "16.20.2"
+  },
+  "netlify": {
+    "plugins": [
+      {
+        "package": "@netlify/plugin-functions-core"
+      }
+    ]
   }
 }
