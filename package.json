@@ -14,16 +14,9 @@
     "cors": "^2.8.5"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15",
+    "nodemon": "^2.0.15"
   },
   "engines": {
     "node": "16.20.2"
-  },
-  "netlify": {
-    "plugins": [
-      {
-        "package": "@netlify/plugin-functions-core"
-      }
-    ]
   }
 }
