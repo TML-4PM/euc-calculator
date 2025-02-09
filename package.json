@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "start": "serve public -p 3000",
-    "build": "cp index.html styles.css script.js package.json netlify.toml assets/ public/",
+    "build": "cp index.html styles.css script.js productList.json netlify.toml assets/ public/",
     "deploy": "npm run build && netlify deploy --prod"
   },
   "repository": {
