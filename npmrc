@@ -1,2 +1,0 @@
-# Force GitHub dependencies to use HTTPS
-git+ssh://github.com/ = git+https://github.com/
