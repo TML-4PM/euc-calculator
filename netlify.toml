@@ -3,5 +3,8 @@
   publish = "/opt/build/repo/public"
   functionsDirectory = "/opt/build/repo/functions"
 
+[build.environment]
+  NODE_VERSION = "16"
+
 [[plugins]]
   package = "@netlify/plugin-functions-core"
