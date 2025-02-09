@@ -1,9 +1,9 @@
 // Global Variables
 let productList = [];
-let allQuotes = []; // Aggregates all quotes for CSV export
-let currentQuote = null; // Stores the current quote details
-let specialOrders = [];  // Stores any unknown/special order products
-let extraOffer = null;   // Stores extra offer info (if any)
+let allQuotes = [];        // Aggregates all quotes for CSV export
+let currentQuote = null;   // Stores the current quote details
+let specialOrders = [];    // Stores any unknown/special order products
+let extraOffer = null;     // Stores extra offer info (if any)
 
 // Load product list from external JSON file
 fetch('productList.json')
@@ -30,25 +30,27 @@ function generateProductCategories() {
     const header = document.createElement("h3");
     header.textContent = category;
     catDiv.appendChild(header);
-    productList.filter(p => p.category === category).forEach(product => {
-      const prodDiv = document.createElement("div");
-      prodDiv.className = "product-item";
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.id = product.id;
-      const label = document.createElement("label");
-      label.htmlFor = product.id;
-      label.textContent = product.name;
-      const qtyInput = document.createElement("input");
-      qtyInput.type = "number";
-      qtyInput.min = 0;
-      qtyInput.value = 0;
-      qtyInput.dataset.productId = product.id;
-      prodDiv.appendChild(checkbox);
-      prodDiv.appendChild(label);
-      prodDiv.appendChild(qtyInput);
-      catDiv.appendChild(prodDiv);
-    });
+    productList
+      .filter(p => p.category === category)
+      .forEach(product => {
+        const prodDiv = document.createElement("div");
+        prodDiv.className = "product-item";
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.id = product.id;
+        const label = document.createElement("label");
+        label.htmlFor = product.id;
+        label.textContent = product.name;
+        const qtyInput = document.createElement("input");
+        qtyInput.type = "number";
+        qtyInput.min = 0;
+        qtyInput.value = 0;
+        qtyInput.dataset.productId = product.id;
+        prodDiv.appendChild(checkbox);
+        prodDiv.appendChild(label);
+        prodDiv.appendChild(qtyInput);
+        catDiv.appendChild(prodDiv);
+      });
     container.appendChild(catDiv);
   });
 }
@@ -56,7 +58,7 @@ function generateProductCategories() {
 // Parse email input and auto-fill the form
 function parseEmailAndFillForm() {
   const emailContent = document.getElementById("email_input").value;
-  // Fill customer details
+  // Extract customer details
   const nameMatch = emailContent.match(/Customer Name:\s*([^\n]+)/i);
   const companyMatch = emailContent.match(/Company:\s*([^\n]+)/i);
   document.getElementById("customer_name").value = nameMatch ? nameMatch[1].trim() : "";
@@ -71,7 +73,7 @@ function parseEmailAndFillForm() {
     if (qtyInput) qtyInput.value = 0;
   });
 
-  // Loop over each product to see if mentioned with a quantity
+  // Auto‑fill product quantities from email content
   productList.forEach(prod => {
     const regex = new RegExp(escapeRegExp(prod.name) + "\\s*(\\d+)", "i");
     const match = emailContent.match(regex);
@@ -86,8 +88,8 @@ function parseEmailAndFillForm() {
     }
   });
   
-  // Check for unknown product mentions and add them as special orders
-  // For example, any line starting with "Product:" not in our list
+  // Check for unknown product mentions and add them as special orders.
+  // For instance, if the email has lines like "Product: [Name]" that are not in our list.
   const unknownRegex = /Product:\s*([^\n]+)/gi;
   let match;
   while ((match = unknownRegex.exec(emailContent)) !== null) {
@@ -101,12 +103,14 @@ function parseEmailAndFillForm() {
     const notes = document.getElementById("additional_notes");
     notes.value += "\n\nSpecial Order - POA:\n" + specialOrders.join("\n");
   }
-  showModal("Form auto-filled from email input.", "Auto-Fill Complete");
+  
+  showModal("Form auto‑filled from email input.", "Auto‑Fill Complete");
 }
 
 // Calculate quote from selected products
 function calculateAndDisplay(event) {
   event.preventDefault();
+  
   let selectedProducts = productList.filter(prod => {
     const checkbox = document.getElementById(prod.id);
     return checkbox && checkbox.checked;
@@ -116,7 +120,7 @@ function calculateAndDisplay(event) {
     return { ...prod, quantity };
   }).filter(prod => prod.quantity > 0);
   
-  // Base calculation: 1 hour per product and $100 per extra hour
+  // Base calculation: assume 1 hour per product and $100 per extra hour
   const baseHours = selectedProducts.length;
   const urgency = document.getElementById("urgency_level").value;
   const afterHours = document.getElementById("after_hours").value === "Yes";
@@ -124,11 +128,11 @@ function calculateAndDisplay(event) {
   const adjustedHours = Math.round(baseHours * urgencyMultipliers[urgency] + (afterHours ? 2 : 0));
   const productsCost = selectedProducts.reduce((sum, prod) => sum + prod.price * prod.quantity, 0);
   
-  // Extra offer (if applied)
+  // Extra offer cost
   let offerCost = 0;
   if (extraOffer === "SmartAssist") offerCost = 19.99;
   else if (extraOffer === "SmartAssistPlus") offerCost = 29.99;
-  // Special Request can be handled as POA (Price On Application)
+  // SpecialRequest can be left as POA (price on application)
   
   // Total cost calculation
   const totalCost = productsCost + (adjustedHours * 100) + offerCost;
@@ -148,7 +152,7 @@ function calculateAndDisplay(event) {
     additionalNotes: document.getElementById("additional_notes").value
   };
   
-  // Add to aggregated quotes
+  // Aggregate quote for CSV export
   allQuotes.push(currentQuote);
   
   // Update UI results table
@@ -166,7 +170,7 @@ function calculateAndDisplay(event) {
     tbody.appendChild(row);
   });
   
-  // Display special orders if any
+  // Display special orders, if any
   const specialDiv = document.getElementById("special-orders");
   if (specialOrders.length > 0) {
     specialDiv.innerHTML = `<strong>Special Order - POA:</strong><br>${specialOrders.join("<br>")}`;
@@ -189,14 +193,14 @@ function calculateAndDisplay(event) {
   showModal("Quote calculated successfully!", "Calculation Complete");
 }
 
-// Generate Barcode (using JsBarcode)
+// Generate Barcode using JsBarcode
 function generateBarcode(uniqueId) {
   if (typeof JsBarcode !== "undefined") {
     JsBarcode("#barcode", uniqueId, { format: "CODE128", width: 2, height: 100 });
   }
 }
 
-// Generate QR Code (using QRCode.js)
+// Generate QR Code using QRCode.js
 function generateQRCode(uniqueId) {
   const container = document.getElementById("qrcode");
   container.innerHTML = "";
@@ -205,7 +209,7 @@ function generateQRCode(uniqueId) {
   }
 }
 
-// Apply extra offer based on button click
+// Apply an extra offer based on button click
 function applyOffer(offerType) {
   extraOffer = offerType;
   showModal(`Offer applied: ${offerType}`, "Offer Selected");
@@ -315,9 +319,8 @@ function sendEmailConfirmation() {
   window.location.href = mailtoLink;
 }
 
-// Simulate opening a calendar for scheduling
+// Simulate opening a calendar for scheduling and propose a date/time
 function openCalendar() {
-  // For demo: propose a date/time in the next 5 days
   const today = new Date();
   const daysToAdd = Math.floor(Math.random() * 5) + 1;
   const proposedDate = new Date(today.getTime() + daysToAdd * 24 * 60 * 60 * 1000);
