@@ -19,12 +19,11 @@ body {
 .container {
     width: 90%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
     background: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    margin-top: 20px;
 }
 
 /* Header Styling */
@@ -101,6 +100,7 @@ textarea {
     min-height: 80px;
 }
 
+/* Button Styling */
 button {
     display: inline-block;
     background: #0779e4;
@@ -133,6 +133,15 @@ button.confirm-btn {
 
 button.confirm-btn:hover {
     background: #e0a800;
+}
+
+/* Added styling for Suggest Dates button */
+button.suggest-btn {
+    background: #17a2b8;
+}
+
+button.suggest-btn:hover {
+    background: #138496;
 }
 
 /* Results Section */
@@ -175,6 +184,27 @@ button.confirm-btn:hover {
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
+}
+
+/* Added styling for dynamically generated product categories and items */
+.category {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.category h3 {
+    margin-bottom: 10px;
+    color: #0779e4;
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
 }
 
 /* Modal Styling */
