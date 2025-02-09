@@ -5,24 +5,24 @@ This web application calculates job pricing for End‑User Computing (EUC) servi
 ## Features
 
 - **Modern, Responsive UI:**  
-  Clean design with grouped product categories and dedicated quantity inputs.
+  Clean, professional design with products grouped by category and dedicated quantity inputs.
 - **Dual Input Modes:**  
-  Enter data manually or paste an email to auto‑fill the form.
+  Enter data manually or paste an email to auto‑fill the form. Email input automatically extracts customer details and populates the form.
 - **Special Orders:**  
-  Unknown products are flagged as “Special Order – POA.”
+  Unknown products are flagged as “Special Order – POA” for separate quotation.
 - **Extra Offers:**  
   Choose from three add‑on options:
   - Add SmartAssist for $19.99/month
   - Add SmartAssist+ for $29.99/month
   - Special Request – Click Here
 - **Quote Aggregation:**  
-  All quotes are aggregated and can be exported as CSV (with full product specs and prices).
+  All quotes are aggregated and can be exported as CSV (including full product specifications and prices).
 - **PDF Generation & Email:**  
   Generates a detailed PDF quote (including customer info, product details, prices, and logos) and sends all emails to **troy.latter@unisys.com**.
 - **Calendar Integration:**  
   Proposes a scheduling time for installation.
 - **Videocon Feature:**  
-  A new “Videocon” button opens a video conference window for instant meetings.
+  A dedicated “Videocon” button opens a video conference link for instant meetings.
 
 ## Setup
 
