@@ -145,6 +145,13 @@ button.offer-btn {
 button.offer-btn:hover {
   background: #5a6268;
 }
+/* Videocon button (extra) */
+button.videocon-btn {
+  background: #ff5722;
+}
+button.videocon-btn:hover {
+  background: #e64a19;
+}
 
 /* Results Section */
 #results {
