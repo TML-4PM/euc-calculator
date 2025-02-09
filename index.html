@@ -1,106 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EUC Job Pricing Calculator</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EUC Job Pricing Calculator</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- External Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <img class="logo" src="assets/officeworks-logo.png" alt="Officeworks Logo">
-            <h1>EUC Job Pricing Calculator</h1>
-            <img class="logo" src="assets/geeks2u-logo.png" alt="Geeks2u Logo">
-        </header>
+  <div class="container">
+    <header>
+      <img class="logo" src="assets/officeworks-logo.png" alt="Officeworks Logo" />
+      <h1>EUC Job Pricing Calculator</h1>
+      <img class="logo" src="assets/geeks2u-logo.png" alt="Geeks2u Logo" />
+    </header>
 
-        <!-- Email Input -->
-        <section>
-            <label for="email_input">Paste Email Request:</label>
-            <textarea id="email_input" rows="6" placeholder="Paste email here..."></textarea>
-            <button onclick="parseEmailAndFillForm()">Auto-Fill Form</button>
-        </section>
+    <!-- Email Input Section -->
+    <section>
+      <label for="email_input">Paste Email Request:</label>
+      <textarea id="email_input" rows="6" placeholder="Paste email here..."></textarea>
+      <button onclick="parseEmailAndFillForm()">Auto-Fill Form</button>
+    </section>
 
-        <!-- Product Selection -->
-        <section>
-            <h2>Select Products:</h2>
-            <div id="product-categories"></div>
-        </section>
+    <!-- Product Selection Section -->
+    <section>
+      <h2>Select Products:</h2>
+      <div id="product-categories"></div>
+    </section>
 
-        <!-- Service Details -->
-        <section>
-            <h2>Service Details</h2>
-            <label for="customer_name">Customer Name:</label>
-            <input type="text" id="customer_name" placeholder="Enter Customer Name">
+    <!-- Service Details Section -->
+    <section>
+      <h2>Service Details</h2>
+      <label for="customer_name">Customer Name:</label>
+      <input type="text" id="customer_name" placeholder="Enter Customer Name" />
 
-            <label for="company_name">Company Name:</label>
-            <input type="text" id="company_name" placeholder="Enter Company Name">
+      <label for="company_name">Company Name:</label>
+      <input type="text" id="company_name" placeholder="Enter Company Name" />
 
-            <label for="installation_date">Preferred Installation Date:</label>
-            <input type="date" id="installation_date">
+      <label for="installation_date">Preferred Installation Date:</label>
+      <input type="date" id="installation_date" />
 
-            <label for="urgency_level">Urgency Level:</label>
-            <select id="urgency_level">
-                <option value="Standard">Standard</option>
-                <option value="Urgent">Urgent</option>
-                <option value="Emergency">Emergency</option>
-            </select>
+      <label for="urgency_level">Urgency Level:</label>
+      <select id="urgency_level">
+        <option value="Standard">Standard</option>
+        <option value="Urgent">Urgent</option>
+        <option value="Emergency">Emergency</option>
+      </select>
 
-            <label for="after_hours">After-Hours Service Required?</label>
-            <select id="after_hours">
-                <option value="No">No</option>
-                <option value="Yes">Yes</option>
-            </select>
+      <label for="after_hours">After-Hours Service Required?</label>
+      <select id="after_hours">
+        <option value="No">No</option>
+        <option value="Yes">Yes</option>
+      </select>
 
-            <label for="additional_notes">Additional Notes:</label>
-            <textarea id="additional_notes" rows="4" placeholder="Enter additional notes..."></textarea>
-        </section>
+      <label for="additional_notes">Additional Notes:</label>
+      <textarea id="additional_notes" rows="4" placeholder="Enter additional notes..."></textarea>
+    </section>
 
-        <!-- Buttons -->
-        <section>
-            <button class="calculate-btn" onclick="calculateAndDisplay(event)">Calculate</button>
-            <button class="suggest-btn" onclick="suggestDates(event)">Suggest Dates</button>
-            <button class="confirm-btn" onclick="confirmAppointment(event)">Confirm Appointment</button>
-            <button onclick="exportToCSV()">Export to CSV</button>
-            <button onclick="printToPDF()">Print to PDF</button>
-            <button onclick="sendEmailConfirmation()">Send Email</button>
-        </section>
+    <!-- Buttons Section -->
+    <section>
+      <button class="calculate-btn" onclick="calculateAndDisplay(event)">Calculate</button>
+      <button class="suggest-btn" onclick="suggestDates(event)">Suggest Dates</button>
+      <button class="confirm-btn" onclick="confirmAppointment(event)">Confirm Appointment</button>
+      <button onclick="exportToCSV()">Export to CSV</button>
+      <button onclick="printToPDF()">Print to PDF</button>
+      <button onclick="sendEmailConfirmation()">Send Email</button>
+    </section>
 
-        <!-- Results Section -->
-        <section id="results" style="display: none;">
-            <h2>Quote Summary</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Category</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody id="quote-table-body"></tbody>
-            </table>
-            <p><strong>Total Billable Hours:</strong> <span id="total-hours">0</span> hours</p>
-            <p><strong>Total Cost:</strong> USD $<span id="total-cost">0.00</span></p>
-            <div class="barcode-qr">
-                <canvas id="barcode"></canvas>
-                <div id="qrcode"></div>
-            </div>
-        </section>
+    <!-- Results Section -->
+    <section id="results" style="display: none;">
+      <h2>Quote Summary</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="quote-table-body"></tbody>
+      </table>
+      <p><strong>Total Billable Hours:</strong> <span id="total-hours">0</span> hours</p>
+      <p><strong>Total Cost:</strong> <span id="total-cost">0.00</span></p>
+      <div class="barcode-qr">
+        <canvas id="barcode"></canvas>
+        <div id="qrcode"></div>
+      </div>
+    </section>
 
-        <!-- Modal for Confirmation -->
-        <div id="confirmation-modal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <h3 id="modal-title">Confirmation</h3>
-                <p id="modal-message"></p>
-                <button onclick="closeModal()">Close</button>
-            </div>
-        </div>
+    <!-- Modal for Confirmation -->
+    <div id="confirmation-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <h3 id="modal-title">Confirmation</h3>
+        <p id="modal-message"></p>
+        <button onclick="closeModal()">Close</button>
+      </div>
     </div>
+  </div>
 </body>
 </html>
