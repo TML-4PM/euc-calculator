@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:yourusername/euc-job-pricing-calculator.git"
+    "url": "https://github.com/yourusername/euc-job-pricing-calculator.git"
   },
   "keywords": [
     "EUC",
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "netlify-cli": "^14.0.0",
-    "@netlify/plugin-functions-core": "git+ssh://git@github.com/netlify/netlify-plugin-functions-core.git#main",
+    "@netlify/plugin-functions-core": "git+https://github.com/netlify/netlify-plugin-functions-core.git#main",
     "copyfiles": "^2.4.1"
   }
 }
