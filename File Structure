@@ -1,14 +1,25 @@
-/assets
-  geeks2u-logo.png
-  officeworks-logo.png
-  rowboat.gif
-.npmrc
-LICENSE
-README.md
-index.html
-netlify.toml
-package.json
-script.js
-styles.css
-productList.json
-
+/euc-job-pricing-calculator
+├── assets/                     # Store images, icons, logos
+│   ├── geeks2u-logo.png
+│   ├── officeworks-logo.png
+│   ├── rowboat.gif
+├── public/                     # Static frontend files
+│   ├── index.html
+│   ├── styles.css
+│   ├── script.js
+├── data/                        # JSON data for pricing
+│   ├── productList.json
+├── src/                        # Backend API (Express.js)
+│   ├── app.js
+│   ├── controllers/
+│   │   ├── pricingController.js
+│   ├── routes/
+│   │   ├── pricingRoutes.js
+│   ├── models/
+│   │   ├── pricingModel.js
+├── functions/                   # Netlify serverless functions
+│   ├── api.js
+├── netlify.toml                 # Netlify configuration
+├── package.json                 # Project dependencies
+├── LICENSE                      # Open-source license
+├── README.md                    # Documentation
