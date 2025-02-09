@@ -1,6 +1,6 @@
 # EUC Job Pricing Calculator
 
-This web application calculates job pricing for End‑User Computing (EUC) services. It supports both manual and email‑based inputs. The calculator groups products by category, allows quantity entry, and includes extra offers. The final quote is generated as a professional PDF (with Officeworks and Geeks2u logos) and can be exported as CSV. It also integrates with a sample calendar for scheduling proposals.
+This web application calculates job pricing for End‑User Computing (EUC) services. It supports both manual and email‑based inputs. The calculator groups products by category, allows quantity entry, and includes extra offers. The final quote is generated as a professional PDF (with Officeworks and Geeks2u logos) and can be exported as CSV. It also integrates with a sample calendar for scheduling proposals and features a video conference button for instant meetings.
 
 ## Features
 
@@ -21,6 +21,8 @@ This web application calculates job pricing for End‑User Computing (EUC) servi
   Generates a detailed PDF quote (including customer info, product details, prices, and logos) and sends all emails to **troy.latter@unisys.com**.
 - **Calendar Integration:**  
   Proposes a scheduling time for installation.
+- **Videocon Feature:**  
+  A new “Videocon” button opens a video conference window for instant meetings.
 
 ## Setup
 
