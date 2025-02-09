@@ -73,7 +73,7 @@ function parseEmailAndFillForm() {
     if (qtyInput) qtyInput.value = 0;
   });
 
-  // Auto‑fill product quantities from email content
+  // Auto-fill product quantities from email content
   productList.forEach(prod => {
     const regex = new RegExp(escapeRegExp(prod.name) + "\\s*(\\d+)", "i");
     const match = emailContent.match(regex);
@@ -88,7 +88,7 @@ function parseEmailAndFillForm() {
     }
   });
   
-  // Identify unknown product mentions and add them as special orders.
+  // Identify unknown product mentions and flag them as special orders.
   const unknownRegex = /Product:\s*([^\n]+)/gi;
   let match;
   while ((match = unknownRegex.exec(emailContent)) !== null) {
@@ -103,7 +103,7 @@ function parseEmailAndFillForm() {
     notes.value += "\n\nSpecial Order - POA:\n" + specialOrders.join("\n");
   }
   
-  showModal("Form auto‑filled from email input.", "Auto‑Fill Complete");
+  showModal("Form auto-filled from email input.", "Auto-Fill Complete");
 }
 
 // Calculate quote from selected products
@@ -216,6 +216,13 @@ function applyOffer(offerType) {
   showModal(`Offer applied: ${offerType}`, "Offer Selected");
 }
 
+// New: Open video conference (Videocon) function
+function openVideoCon() {
+  // For example, open a placeholder video conference URL
+  // Replace the URL with your preferred video conferencing service or link.
+  window.open("https://meet.jit.si/euc-calculator-demo", "_blank");
+}
+
 // Export aggregated quotes to CSV
 function exportToCSV() {
   if (allQuotes.length === 0) {
@@ -308,7 +315,8 @@ function printToPDF() {
   });
 }
 
-// Send email: All emails are sent to troy.latter@unisys.com
+// Send email (simulate by opening the mail client)
+// All emails are sent to troy.latter@unisys.com
 function sendEmailConfirmation() {
   if (!currentQuote) {
     showModal("Please calculate a quote first.", "Error");
@@ -316,7 +324,6 @@ function sendEmailConfirmation() {
   }
   const subject = `Quote Confirmation - ${currentQuote.customer}`;
   const body = `Please find the attached quote.\n\nQuote Details:\nCustomer: ${currentQuote.customer}\nCompany: ${currentQuote.company}\nInstallation Date: ${currentQuote.installationDate}\nTotal Cost: USD $${currentQuote.totalCost.toFixed(2)}\n\n(See PDF attachment for full details.)`;
-  // All emails are sent to troy.latter@unisys.com
   const mailtoLink = `mailto:troy.latter@unisys.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   window.location.href = mailtoLink;
 }
@@ -330,6 +337,13 @@ function openCalendar() {
   const times = ["09:00 AM", "01:00 PM", "03:00 PM"];
   const proposedTime = times[Math.floor(Math.random() * times.length)];
   showModal(`Proposed Installation: ${formattedDate} at ${proposedTime}`, "Scheduling Suggestion");
+}
+
+// New: Open video conference (Videocon) function
+function openVideoCon() {
+  // Open a new window/tab with a placeholder video conference URL.
+  // Replace with your actual video conferencing URL if needed.
+  window.open("https://meet.jit.si/euc-calculator-demo", "_blank");
 }
 
 // Modal control functions
