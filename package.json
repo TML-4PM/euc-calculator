@@ -20,6 +20,9 @@
   ],
   "author": "Troy Latter",
   "license": "MIT",
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "jsbarcode": "^3.11.5",
     "jspdf": "^2.5.1",
