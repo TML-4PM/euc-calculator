@@ -88,8 +88,7 @@ function parseEmailAndFillForm() {
     }
   });
   
-  // Check for unknown product mentions and add them as special orders.
-  // For instance, if the email has lines like "Product: [Name]" that are not in our list.
+  // Identify unknown product mentions and add them as special orders.
   const unknownRegex = /Product:\s*([^\n]+)/gi;
   let match;
   while ((match = unknownRegex.exec(emailContent)) !== null) {
@@ -111,14 +110,17 @@ function parseEmailAndFillForm() {
 function calculateAndDisplay(event) {
   event.preventDefault();
   
-  let selectedProducts = productList.filter(prod => {
-    const checkbox = document.getElementById(prod.id);
-    return checkbox && checkbox.checked;
-  }).map(prod => {
-    const qtyInput = document.querySelector(`input[data-product-id="${prod.id}"]`);
-    const quantity = qtyInput ? parseInt(qtyInput.value) : 0;
-    return { ...prod, quantity };
-  }).filter(prod => prod.quantity > 0);
+  let selectedProducts = productList
+    .filter(prod => {
+      const checkbox = document.getElementById(prod.id);
+      return checkbox && checkbox.checked;
+    })
+    .map(prod => {
+      const qtyInput = document.querySelector(`input[data-product-id="${prod.id}"]`);
+      const quantity = qtyInput ? parseInt(qtyInput.value) : 0;
+      return { ...prod, quantity };
+    })
+    .filter(prod => prod.quantity > 0);
   
   // Base calculation: assume 1 hour per product and $100 per extra hour
   const baseHours = selectedProducts.length;
@@ -132,7 +134,6 @@ function calculateAndDisplay(event) {
   let offerCost = 0;
   if (extraOffer === "SmartAssist") offerCost = 19.99;
   else if (extraOffer === "SmartAssistPlus") offerCost = 29.99;
-  // SpecialRequest can be left as POA (price on application)
   
   // Total cost calculation
   const totalCost = productsCost + (adjustedHours * 100) + offerCost;
@@ -152,7 +153,7 @@ function calculateAndDisplay(event) {
     additionalNotes: document.getElementById("additional_notes").value
   };
   
-  // Aggregate quote for CSV export
+  // Aggregate this quote for CSV export
   allQuotes.push(currentQuote);
   
   // Update UI results table
@@ -170,7 +171,7 @@ function calculateAndDisplay(event) {
     tbody.appendChild(row);
   });
   
-  // Display special orders, if any
+  // Display special orders if any
   const specialDiv = document.getElementById("special-orders");
   if (specialOrders.length > 0) {
     specialDiv.innerHTML = `<strong>Special Order - POA:</strong><br>${specialOrders.join("<br>")}`;
@@ -178,7 +179,7 @@ function calculateAndDisplay(event) {
     specialDiv.innerHTML = "";
   }
   
-  // Update totals in UI
+  // Update totals in the UI
   document.getElementById("total-hours").textContent = adjustedHours;
   document.getElementById("total-cost").textContent = `USD $${totalCost.toFixed(2)}`;
   
@@ -307,7 +308,7 @@ function printToPDF() {
   });
 }
 
-// Send email (simulate by opening mail client)
+// Send email: All emails are sent to troy.latter@unisys.com
 function sendEmailConfirmation() {
   if (!currentQuote) {
     showModal("Please calculate a quote first.", "Error");
@@ -315,11 +316,12 @@ function sendEmailConfirmation() {
   }
   const subject = `Quote Confirmation - ${currentQuote.customer}`;
   const body = `Please find the attached quote.\n\nQuote Details:\nCustomer: ${currentQuote.customer}\nCompany: ${currentQuote.company}\nInstallation Date: ${currentQuote.installationDate}\nTotal Cost: USD $${currentQuote.totalCost.toFixed(2)}\n\n(See PDF attachment for full details.)`;
+  // All emails are sent to troy.latter@unisys.com
   const mailtoLink = `mailto:troy.latter@unisys.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   window.location.href = mailtoLink;
 }
 
-// Simulate opening a calendar for scheduling and propose a date/time
+// Simulate opening a calendar for scheduling and propose a time
 function openCalendar() {
   const today = new Date();
   const daysToAdd = Math.floor(Math.random() * 5) + 1;
