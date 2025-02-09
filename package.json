@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "netlify-cli": "^14.0.0",
-    "@netlify/plugin-functions-core": "git+https://github.com/netlify/netlify-plugin-functions-core.git",
+    "@netlify/plugin-functions-core": "git+https://github.com/netlify/netlify-plugin-functions-core.git#main",
     "copyfiles": "^2.4.1"
   }
 }
