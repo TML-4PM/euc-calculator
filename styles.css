@@ -1,271 +1,38 @@
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Base Styles */
 body {
-  font-family: 'Roboto', sans-serif;
-  background: #f0f2f5;
-  color: #333;
-  line-height: 1.6;
-  padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+h1 {
+    color: #333;
 }
 
-/* Header */
-header {
-  background: #007acc;
-  color: #fff;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-header .logo {
-  width: 120px;
-  height: auto;
-}
-header h1 {
-  font-size: 28px;
-  text-align: center;
-  flex: 1;
+.calculator {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    margin-top: 20px;
 }
 
-/* Section Styles */
-section {
-  padding: 20px;
-  border-bottom: 1px solid #e0e0e0;
-}
-section h2 {
-  margin-bottom: 15px;
-  color: #007acc;
-  font-size: 22px;
+input {
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
 }
 
-/* Form Elements */
-label {
-  font-weight: 500;
-  margin-bottom: 5px;
-  display: block;
-}
-input[type="text"],
-input[type="number"],
-input[type="date"],
-textarea,
-select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 15px;
-  transition: border-color 0.3s ease;
-}
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: #007acc;
-  outline: none;
-}
-textarea {
-  resize: vertical;
-}
-
-/* Product Categories */
-.category {
-  background: #f9f9f9;
-  padding: 15px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-.category h3 {
-  margin-bottom: 10px;
-  color: #007acc;
-}
-.product-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-.product-item input[type="number"] {
-  width: 80px;
-}
-
-/* Buttons */
 button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  background: #007acc;
-  color: #fff;
-  font-size: 15px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  margin-right: 10px;
-  margin-bottom: 10px;
+    padding: 10px;
+    background: #007acc;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
+
 button:hover {
-  background: #005f99;
-}
-button.calculate-btn {
-  background: #28a745;
-}
-button.calculate-btn:hover {
-  background: #1e7e34;
-}
-button.confirm-btn {
-  background: #ffc107;
-  color: #000;
-}
-button.confirm-btn:hover {
-  background: #e0a800;
-}
-button.suggest-btn {
-  background: #17a2b8;
-}
-button.suggest-btn:hover {
-  background: #138496;
-}
-button.offer-btn {
-  background: #6c757d;
-}
-button.offer-btn:hover {
-  background: #5a6268;
-}
-/* Videocon button (new extra button) */
-button.videocon-btn {
-  background: #ff5722;
-}
-button.videocon-btn:hover {
-  background: #e64a19;
-}
-
-/* Results Section */
-#results {
-  text-align: center;
-  padding: 20px;
-}
-#results table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-#results th,
-#results td {
-  padding: 10px;
-  border: 1px solid #ccc;
-  text-align: left;
-}
-#results th {
-  background: #007acc;
-  color: #fff;
-}
-.total-display {
-  font-size: 18px;
-  margin: 10px 0;
-}
-.large-price {
-  font-size: 24px;
-  font-weight: 700;
-  color: #d9534f;
-}
-.barcode-qr {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  margin-top: 20px;
-}
-.barcode-qr canvas,
-.barcode-qr div {
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 4px;
-}
-
-/* Modal Styles */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-.modal-content {
-  background: #fff;
-  padding: 30px;
-  border-radius: 8px;
-  max-width: 500px;
-  width: 90%;
-  text-align: center;
-}
-.modal-content h3 {
-  margin-bottom: 20px;
-  color: #007acc;
-}
-.modal-content p {
-  margin-bottom: 20px;
-  font-size: 16px;
-}
-.modal-content button {
-  background: #007acc;
-}
-
-/* Offers Section */
-#offers-section {
-  background: #f4f4f4;
-  padding: 20px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-}
-
-/* Dark Mode (Optional) */
-body.dark-mode {
-  background: #121212;
-  color: #e0e0e0;
-}
-body.dark-mode .container {
-  background: #1e1e1e;
-  color: #e0e0e0;
-}
-body.dark-mode header {
-  background: #005bb5;
-}
-body.dark-mode section {
-  background: #2c2c2c;
-}
-body.dark-mode input,
-body.dark-mode textarea,
-body.dark-mode select {
-  background: #333;
-  color: #e0e0e0;
-  border-color: #444;
-}
-body.dark-mode button {
-  background: #005bb5;
-  color: #e0e0e0;
-}
-body.dark-mode button:hover {
-  background: #007acc;
-}
-body.dark-mode #results th {
-  background: #005bb5;
+    background: #005f99;
 }
