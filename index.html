@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EUC Job Pricing Calculator</title>
+  <!-- Google Font for modern look -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <!-- External Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -20,20 +22,21 @@
     </header>
 
     <!-- Email Input Section -->
-    <section>
+    <section id="email-section">
+      <h2>Email Input</h2>
       <label for="email_input">Paste Email Request:</label>
       <textarea id="email_input" rows="6" placeholder="Paste email here..."></textarea>
       <button onclick="parseEmailAndFillForm()">Auto-Fill Form</button>
     </section>
 
     <!-- Product Selection Section -->
-    <section>
-      <h2>Select Products:</h2>
+    <section id="products-section">
+      <h2>Select Products</h2>
       <div id="product-categories"></div>
     </section>
 
     <!-- Service Details Section -->
-    <section>
+    <section id="details-section">
       <h2>Service Details</h2>
       <label for="customer_name">Customer Name:</label>
       <input type="text" id="customer_name" placeholder="Enter Customer Name" />
@@ -61,14 +64,22 @@
       <textarea id="additional_notes" rows="4" placeholder="Enter additional notes..."></textarea>
     </section>
 
-    <!-- Buttons Section -->
-    <section>
-      <button class="calculate-btn" onclick="calculateAndDisplay(event)">Calculate</button>
-      <button class="suggest-btn" onclick="suggestDates(event)">Suggest Dates</button>
-      <button class="confirm-btn" onclick="confirmAppointment(event)">Confirm Appointment</button>
-      <button onclick="exportToCSV()">Export to CSV</button>
-      <button onclick="printToPDF()">Print to PDF</button>
-      <button onclick="sendEmailConfirmation()">Send Email</button>
+    <!-- Action Buttons Section -->
+    <section id="actions-section">
+      <button class="calculate-btn" onclick="calculateAndDisplay(event)">Calculate Quote</button>
+      <button class="suggest-btn" onclick="suggestDates(event)">Suggest Date & Time</button>
+      <button class="confirm-btn" onclick="confirmAppointment(event)">Confirm & Email Quote</button>
+      <button onclick="exportToCSV()">Export All Quotes (CSV)</button>
+      <button onclick="printToPDF()">Print Quote (PDF)</button>
+      <button onclick="sendEmailConfirmation()">Send Quote via Email</button>
+    </section>
+
+    <!-- Offers Section -->
+    <section id="offers-section">
+      <h2>Extra Offers</h2>
+      <button class="offer-btn" onclick="applyOffer('SmartAssist')">Add SmartAssist ($19.99/month)</button>
+      <button class="offer-btn" onclick="applyOffer('SmartAssistPlus')">Add SmartAssist+ ($29.99/month)</button>
+      <button class="offer-btn" onclick="applyOffer('SpecialRequest')">Special Request – Click Here</button>
     </section>
 
     <!-- Results Section -->
@@ -80,24 +91,26 @@
             <th>Product</th>
             <th>Category</th>
             <th>Quantity</th>
-            <th>Price</th>
-            <th>Total</th>
+            <th>Unit Price</th>
+            <th>Line Total</th>
           </tr>
         </thead>
         <tbody id="quote-table-body"></tbody>
       </table>
-      <p><strong>Total Billable Hours:</strong> <span id="total-hours">0</span> hours</p>
-      <p><strong>Total Cost:</strong> <span id="total-cost">0.00</span></p>
+      <div id="special-orders" class="special-orders"></div>
+      <p class="total-display"><strong>Total Billable Hours:</strong> <span id="total-hours">0</span> hours</p>
+      <p class="total-display large-price"><strong>Total Cost:</strong> <span id="total-cost">USD $0.00</span></p>
       <div class="barcode-qr">
         <canvas id="barcode"></canvas>
         <div id="qrcode"></div>
       </div>
+      <button id="schedule-btn" onclick="openCalendar()">Schedule Appointment</button>
     </section>
 
-    <!-- Modal for Confirmation -->
+    <!-- Modal for Notifications/Confirmation -->
     <div id="confirmation-modal" class="modal" style="display: none;">
       <div class="modal-content">
-        <h3 id="modal-title">Confirmation</h3>
+        <h3 id="modal-title">Notification</h3>
         <p id="modal-message"></p>
         <button onclick="closeModal()">Close</button>
       </div>
