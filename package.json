@@ -1,35 +1,9 @@
 {
-  "name": "euc-job-pricing-calculator",
-  "version": "1.0.0",
-  "description": "A world-class web application to calculate job pricing for End-User Computing (EUC) services.",
-  "main": "index.html",
   "scripts": {
     "preinstall": "npm config set git+ssh://git@github.com/ git+https://github.com/",
     "start": "serve public -p 3000",
     "build": "copyfiles -u 1 \"index.html\" \"styles.css\" \"script.js\" \"productList.json\" \"netlify.toml\" \"assets/**\" public/",
     "deploy": "npm run build && netlify deploy --prod"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yourusername/euc-job-pricing-calculator.git"
-  },
-  "keywords": [
-    "EUC",
-    "Job Pricing",
-    "Calculator",
-    "Professional",
-    "Responsive"
-  ],
-  "author": "Troy Latter",
-  "license": "MIT",
-  "engines": {
-    "node": "16.x"
-  },
-  "dependencies": {
-    "jsbarcode": "^3.11.5",
-    "jspdf": "^2.5.1",
-    "qrcode": "^1.5.0",
-    "serve": "^14.2.0"
   },
   "devDependencies": {
     "netlify-cli": "^14.0.0",
