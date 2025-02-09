@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "start": "serve public -p 3000",
-    "build": "cp index.html styles.css script.js productList.json netlify.toml assets/ public/",
+    "build": "copyfiles -u 1 \"index.html\" \"styles.css\" \"script.js\" \"productList.json\" \"netlify.toml\" \"assets/**\" public/",
     "deploy": "npm run build && netlify deploy --prod"
   },
   "repository": {
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "netlify-cli": "^14.0.0",
-    "@netlify/plugin-functions-core": "^1.0.0"
+    "@netlify/plugin-functions-core": "^1.0.0",
+    "copyfiles": "^2.4.1"
   }
 }
