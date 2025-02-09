@@ -1,6 +1,6 @@
 // Global Variables
 let productList = [];
-let allQuotes = []; // To aggregate all quotes
+let allQuotes = []; // Aggregates all quotes for CSV export
 let currentQuote = null; // Stores the current quote details
 let specialOrders = [];  // Stores any unknown/special order products
 let extraOffer = null;   // Stores extra offer info (if any)
@@ -87,7 +87,7 @@ function parseEmailAndFillForm() {
   });
   
   // Check for unknown product mentions and add them as special orders
-  // (We assume any line starting with "Product:" that isn’t in our list)
+  // For example, any line starting with "Product:" not in our list
   const unknownRegex = /Product:\s*([^\n]+)/gi;
   let match;
   while ((match = unknownRegex.exec(emailContent)) !== null) {
@@ -104,7 +104,7 @@ function parseEmailAndFillForm() {
   showModal("Form auto-filled from email input.", "Auto-Fill Complete");
 }
 
-// Calculate quote from selected products (manual or after email fill)
+// Calculate quote from selected products
 function calculateAndDisplay(event) {
   event.preventDefault();
   let selectedProducts = productList.filter(prod => {
@@ -116,7 +116,7 @@ function calculateAndDisplay(event) {
     return { ...prod, quantity };
   }).filter(prod => prod.quantity > 0);
   
-  // Base calculation: assume 1 hour per product and $100 per hour extra charge
+  // Base calculation: 1 hour per product and $100 per extra hour
   const baseHours = selectedProducts.length;
   const urgency = document.getElementById("urgency_level").value;
   const afterHours = document.getElementById("after_hours").value === "Yes";
@@ -124,13 +124,13 @@ function calculateAndDisplay(event) {
   const adjustedHours = Math.round(baseHours * urgencyMultipliers[urgency] + (afterHours ? 2 : 0));
   const productsCost = selectedProducts.reduce((sum, prod) => sum + prod.price * prod.quantity, 0);
   
-  // Extra offers (if any)
+  // Extra offer (if applied)
   let offerCost = 0;
   if (extraOffer === "SmartAssist") offerCost = 19.99;
   else if (extraOffer === "SmartAssistPlus") offerCost = 29.99;
-  // For Special Request, you might handle it differently (POA pricing)
+  // Special Request can be handled as POA (Price On Application)
   
-  // Total cost: sum of product cost + installation cost (hours * 100) + offer (one-time addition)
+  // Total cost calculation
   const totalCost = productsCost + (adjustedHours * 100) + offerCost;
   
   // Save current quote details
@@ -166,7 +166,7 @@ function calculateAndDisplay(event) {
     tbody.appendChild(row);
   });
   
-  // Display special orders (if any)
+  // Display special orders if any
   const specialDiv = document.getElementById("special-orders");
   if (specialOrders.length > 0) {
     specialDiv.innerHTML = `<strong>Special Order - POA:</strong><br>${specialOrders.join("<br>")}`;
@@ -178,7 +178,7 @@ function calculateAndDisplay(event) {
   document.getElementById("total-hours").textContent = adjustedHours;
   document.getElementById("total-cost").textContent = `USD $${totalCost.toFixed(2)}`;
   
-  // Generate Barcode and QR Code using unique ID
+  // Generate Barcode and QR Code using a unique ID
   const uniqueId = "OW-" + Math.random().toString(36).substr(2, 9);
   generateBarcode(uniqueId);
   generateQRCode(uniqueId);
@@ -317,7 +317,7 @@ function sendEmailConfirmation() {
 
 // Simulate opening a calendar for scheduling
 function openCalendar() {
-  // For a demo, simply propose a date/time in the next 5 days at one of three random times
+  // For demo: propose a date/time in the next 5 days
   const today = new Date();
   const daysToAdd = Math.floor(Math.random() * 5) + 1;
   const proposedDate = new Date(today.getTime() + daysToAdd * 24 * 60 * 60 * 1000);
@@ -327,7 +327,7 @@ function openCalendar() {
   showModal(`Proposed Installation: ${formattedDate} at ${proposedTime}`, "Scheduling Suggestion");
 }
 
-// Modal control
+// Modal control functions
 function showModal(message, title) {
   document.getElementById("modal-title").textContent = title;
   document.getElementById("modal-message").textContent = message;
