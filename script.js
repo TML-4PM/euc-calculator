@@ -25,7 +25,7 @@ const productList = [
     { id: "SCN-002", name: "Epson Perfection V39 Flatbed Scanner", category: "Other EUC Devices", price: 149 },
     { id: "WBC-001", name: "Logitech C920 HD Pro Webcam", category: "Other EUC Devices", price: 139 },
     { id: "SPK-001", name: "Jabra Speak 510 Portable Bluetooth Speakerphone", category: "Other EUC Devices", price: 199 },
-    { id: "DOC-001", name: "Kensington SD4700P Universal USB-C and USB 3.0 Docking Station", category: "Other EUC Devices", price: 299 },
+    { id: "DOC-001", name: "Kensington SD4700P Universal USB-C Docking Station", category: "Other EUC Devices", price: 299 },
     { id: "UPS-001", name: "APC Back-UPS 700VA 230V with AVR", category: "Other EUC Devices", price: 229 },
     { id: "DOC-002", name: "Microsoft Surface Dock 2", category: "Other EUC Devices", price: 419 },
     { id: "NET-001", name: "TP-Link AC1300 Mini Wireless MU-MIMO USB Adapter", category: "Other EUC Devices", price: 49.95 }
