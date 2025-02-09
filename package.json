@@ -1,7 +1,7 @@
 {
   "name": "euc-job-pricing-calculator",
   "version": "1.0.0",
-  "description": "A web application to calculate job pricing for End-User Computing (EUC) services.",
+  "description": "A world-class web application to calculate job pricing for End-User Computing (EUC) services.",
   "main": "index.html",
   "scripts": {
     "start": "serve public -p 3000",
@@ -16,7 +16,8 @@
     "EUC",
     "Job Pricing",
     "Calculator",
-    "Web App"
+    "Professional",
+    "Responsive"
   ],
   "author": "Troy Latter",
   "license": "MIT",
