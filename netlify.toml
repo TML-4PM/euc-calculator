@@ -1,23 +1,7 @@
 [build]
-  publish = "public"
   command = "npm run build"
-
-  [build.environment]
-    AFTER_HOURS_CHARGE = "100"
-    URGENCY_STANDARD = "1.0"
-    URGENCY_URGENT = "1.2"
-    URGENCY_EMERGENCY = "1.5"
-    DEFAULT_INSTALLATION_DATE_OFFSET = "3"
-    DEFAULT_EMAIL_RECIPIENT = "troy.latter@unisys.com"
-    EMAIL_SUBJECT_PREFIX = "New EUC Job Appointment Confirmation"
-
-[functions]
-  directory = "functions"
+  publish = "/opt/build/repo/public"
+  functionsDirectory = "/opt/build/repo/functions"
 
 [[plugins]]
   package = "@netlify/plugin-functions-core"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
