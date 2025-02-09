@@ -1,10 +1,11 @@
 [build]
-  command = "npm run build"
-  publish = "/opt/build/repo/public"
-  functionsDirectory = "/opt/build/repo/functions"
+  command = "npm install && npm run build"
+  functions = "functions"
 
-[build.environment]
-  NODE_VERSION = "16"
+[functions]
+  node_bundler = "esbuild"
 
-[[plugins]]
-  package = "@netlify/plugin-functions-core"
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
