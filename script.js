@@ -2,7 +2,7 @@
 let productList = [];
 let allQuotes = [];        // Aggregates all quotes for CSV export
 let currentQuote = null;   // Stores the current quote details
-let specialOrders = [];    // Stores any unknown/special order products
+let specialOrders = [];    // Stores unknown/special order products
 let extraOffer = null;     // Stores extra offer info (if any)
 
 // Load product list from external JSON file
@@ -218,8 +218,8 @@ function applyOffer(offerType) {
 
 // New: Open video conference (Videocon) function
 function openVideoCon() {
-  // For example, open a placeholder video conference URL
-  // Replace the URL with your preferred video conferencing service or link.
+  // Open a new window/tab with a placeholder video conference URL.
+  // Replace this URL with your actual video conferencing service if needed.
   window.open("https://meet.jit.si/euc-calculator-demo", "_blank");
 }
 
@@ -337,13 +337,6 @@ function openCalendar() {
   const times = ["09:00 AM", "01:00 PM", "03:00 PM"];
   const proposedTime = times[Math.floor(Math.random() * times.length)];
   showModal(`Proposed Installation: ${formattedDate} at ${proposedTime}`, "Scheduling Suggestion");
-}
-
-// New: Open video conference (Videocon) function
-function openVideoCon() {
-  // Open a new window/tab with a placeholder video conference URL.
-  // Replace with your actual video conferencing URL if needed.
-  window.open("https://meet.jit.si/euc-calculator-demo", "_blank");
 }
 
 // Modal control functions
