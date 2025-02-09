@@ -27,6 +27,7 @@
     "serve": "^14.2.0"
   },
   "devDependencies": {
-    "netlify-cli": "^14.0.0"
+    "netlify-cli": "^14.0.0",
+    "@netlify/plugin-functions-core": "^1.0.0"
   }
 }
