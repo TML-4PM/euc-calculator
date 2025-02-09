@@ -6,17 +6,17 @@ This web application calculates job pricing for End-User Computing (EUC) service
 
 - **Modern, responsive UI** with grouped product categories.
 - **Manual & email input:** Paste an email request to auto-fill the form.
-- **Special Orders:** Unknown products are flagged as “Special Order – POA”.
-- **Extra offers:** Choose from three add-on buttons (SmartAssist, SmartAssist +, Special Request).
+- **Special Orders:** Unknown products are flagged as “Special Order – POA.”
+- **Extra Offers:** Choose from add-on options (SmartAssist, SmartAssist+, Special Request).
 - **Calendar Integration:** A sample scheduling suggestion is provided.
 - **Quote Aggregation:** All quotes are stored and can be exported to CSV.
 - **PDF Generation & Email:** Generates a PDF quote (with logos) and opens the mail client for sending.
-
+  
 ## Setup
 
 1. Clone the repository.
 2. Run `npm install` to install dependencies.
-3. Use `npm run build` to prepare the public folder.
+3. Use `npm run build` to build the project (all necessary files will be copied to the `public` folder).
 4. Run locally with `npm start` or deploy to Netlify.
 
 ## File Structure
